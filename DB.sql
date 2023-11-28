@@ -23,6 +23,5 @@ create table museums (
 	museinfo text.
 	--map
 );
-
 ALTER TABLE users
 ADD COLUMN spoken_lang text;

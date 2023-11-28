@@ -1,9 +1,16 @@
-const express = require('express');
-const app= express();
-const path = require('path');
-const PORT = process.env.PORT || 3000;
+const express = require('express')
+const cors = require('cors')
 
-app.get('/:test',(req,res) =>{
-    res.send("hello");
-});
-app.listen(PORT, ()=> console.log(`server on ${PORT}`));
+const userAuth = require('./routers/Auth')
+const app = express()
+
+app.use(cors())
+
+app.use(express.json())
+
+app.use(userAuth)
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server is Running... on port: ${process.env.PORT}`)
+})
+
