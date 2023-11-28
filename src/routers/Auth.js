@@ -1,5 +1,5 @@
 const express = require('express')
-const Auth=require('./models/Auth')
+const Auth=require('../models/Auth')
 
 const router = new express.Router()
 
@@ -20,7 +20,7 @@ router.post('/signup', async (req, res) => {
         password: req.body.password,
         role: req.body.role,
         job: req.body.nationality,
-        bio: req.body.mobile
+        mobile: req.body.mobile
     }
     await Auth.signUp(user);
 })

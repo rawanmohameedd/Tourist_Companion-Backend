@@ -1,11 +1,11 @@
-const pool=require('../database/postgres')
+const pool = require('../database/postgres')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 
 const signUp =async(user)=>{
          // check for email exist
-         const { rows } = await pool.query('SELECT * FROM "users" where email = $1',[users.email]);
+         const { rows } = await pool.query('SELECT * FROM "users" where email = $1',[user.email]);
          if(rows[0]){
             return null;
          }
