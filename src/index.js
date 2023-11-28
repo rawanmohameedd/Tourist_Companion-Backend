@@ -1,10 +1,17 @@
-const express = require('express');
-const app= express();
-const path = require('path');
-const PORT = process.env.PORT || 3000;
+const express = require('express')
+const cors = require('cors')
 
-app.get('/',(req,res) =>{
-    res.sendFile(path.join(__dirname, '../', 'DB.sql'));
-    //res.sendFile('./database/postgres.js', {root:__dirname});
-});
-app.listen(PORT, ()=> console.log(`server on ${PORT}`));
+const userAuth = require('./routers/Auth')
+const userRouter = require('./routers/User')
+const app = express()
+
+app.use(cors())
+
+app.use(express.json())
+
+app.use(userAuth)
+app.use(userRouter)
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server is Running... on port: ${process.env.PORT}`)
+})
