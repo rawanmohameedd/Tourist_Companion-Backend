@@ -14,12 +14,12 @@ router.post("/signupTourist", async (req, res) => {
   const existingMobile = await User.getByMobile(user.mobile);
   const existingEmail = await User.getByEmail(user.email);
 
-  /*if (existingMobile || existingEmail) {
+  if (existingMobile || existingEmail) {
     return res.status(400).send({ message: "Email  or mobile is already in use" });
   }
   if(!user.email || !user.fname || !user.lname || !user.mobile || !user.nationality || !user.nationalid || !user.brithday  || !user.password || !user.spoken_lang){
     return res.send({ message: "One or More Fields are Empty" });
-  }*/
+  }
   await User.createTourist(user);
   res.send({
     message: "Done"
@@ -31,12 +31,12 @@ router.post("/signupTourGuide", async (req, res) => {
   const existingMobile = await User.getByMobile(user.mobile);
   const existingEmail = await User.getByEmail(user.email);
 
- /* if (existingMobile || existingEmail) {
+ if (existingMobile || existingEmail) {
     return res.status(400).send({ message: "Email  or mobile is already in use" });
   }
   if(!user.email || !user.fname || !user.lname || !user.mobile || !user.nationality || !user.nationalid || !user.brithday  || !user.password || !user.spoken_lang){
     return res.send({ message: "One or More Fields are Empty" });
-  }*/
+  }
   await User.createTourGuide(user);
   res.send({
     message: "Done"
