@@ -8,7 +8,7 @@ Create Table users(
 	nationalid varchar(14),
 	role varchar(10),
 	brithday date,
-	password varchar(20)
+	password varchar(255)
     --license
 	--passport
 	--profile photo
