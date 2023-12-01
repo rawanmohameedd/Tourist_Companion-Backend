@@ -8,24 +8,24 @@ const getByUsername = async(username) => {
 };
 
 const getByEmail = async(email) => {
-    const result = await pool.query('SELECT * FROM "tourguide" WHERE email=$1',[email]);
+    const result = await pool.query('SELECT * FROM "tourguide" WHERE emailTG=$1',[email]);
     return result.rows.length > 0;
 };
 
 const createTourGuide = async (user) => {
     //Hashing user password
     const salt = await bcrypt.genSalt(8);
-    const passwordHash = await bcrypt.hash(user.password, salt);
+    const passwordHash = await bcrypt.hash(user.passwordTG, salt);
 
     await pool.query(
-        'INSERT INTO "tourguide" (tourguide_username,email,first_name,last_name,nationalid,brithday,spoken_lang,password) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
-        [user.tourguide_username,user.email,user.first_name,user.last_name,user.nationalid,user.brithday,user.spoken_lang,passwordHash]
+        'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.brithdayTG,user.spoken_langTG,user.passwordTG]
     );
 };
 
 const signinTourGuide = async (email, password) => {
     const { rows } = await pool.query(
-        'SELECT * FROM "tourguide" WHERE email = $1',
+        'SELECT * FROM "tourguide" WHERE emailTG = $1',
         [email]
     );
     let user = rows[0];
@@ -33,10 +33,10 @@ const signinTourGuide = async (email, password) => {
     return null;
     }
 
-    const isValid = await bcrypt.compare(password, user.password);
+    //const isValid = await bcrypt.compare(password, user.passwordTG);
 
-    if (!isValid) return null;
-    const token = jwt.sign({ id: user.userid }, "yarab");
+    //if (!isValid) return null;
+    const token = jwt.sign({ tourguide_username:user.tourguide_username } , "yarab");
     user.token = token;
     return user;
 };

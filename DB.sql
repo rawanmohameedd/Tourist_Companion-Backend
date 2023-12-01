@@ -1,28 +1,29 @@
 Create Table tourists(
 	tour_username varchar(20),
- 	email varchar(255),
-  	first_name varchar(20),
-  	last_name varchar(20),
-	nationality varchar(20),
-	brithday date,
-	password varchar(255),
-    profile_photo varchar(255),
+ 	emailT varchar(255),
+  	first_nameT varchar(20),
+  	last_nameT varchar(20),
+	nationalityT varchar(20),
+	brithdayT date,
+	passwordT varchar(255),
+    profile_photoT varchar(255),
 	primary key(tour_username)
 );
 
 Create Table tourGuide(
 	tourguide_username varchar(20),
- 	email varchar(32),
-  	first_name varchar(20),
-  	last_name varchar(20),
-	nationalid varchar(14),
-	brithday date,
-	spoken_lang text,
-	password varchar(255),
-    profile_photo varchar(255),
-	license varchar(255),
+ 	emailTG varchar(32),
+  	first_nameTG varchar(20),
+  	last_nameTG varchar(20),
+	nationalidTG varchar(14),
+	brithdayTG date,
+	spoken_langTG text,
+	passwordTG varchar(255),
+    profile_photoTG varchar(255),
+	licenseTG varchar(255),
 	primary key(tourguide_username)
 );
+
 create table tickets (
 	id serial primary key,
 	tourist int,

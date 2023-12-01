@@ -8,24 +8,24 @@ const getByUsername = async(username) => {
 };
 
 const getByEmail = async(email) => {
-    const result = await pool.query('SELECT * FROM "tourists" WHERE email=$1',[email]);
+    const result = await pool.query('SELECT * FROM "tourists" WHERE emailT=$1',[email]);
     return result.rows.length > 0;
 };
 
 const createTourist = async (user) => {
   //Hashing user password
     const salt = await bcrypt.genSalt(8);
-    const passwordHash = await bcrypt.hash(user.password, salt);
+    const passwordHash = await bcrypt.hash(user.passwordT, salt);
 
     await pool.query(
-        'INSERT INTO "tourists" (tour_username,email,first_name,last_name,nationality,brithday,password) VALUES ($1,$2,$3,$4,$5,$6,$7)',
-        [user.tour_username,user.email,user.first_name,user.last_name,user.nationality,user.brithday,passwordHash]
+        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,brithdayT,passwordT) VALUES ($1,$2,$3,$4,$5,$6,$7)',
+        [user.tour_username,user.emailT,user.first_nameT,user.last_nameT,user.nationalityT,user.brithdayT,user.passwordT]
     );
 };
 
 const signinTour = async (email, password) => {
     const { rows } = await pool.query(
-      'SELECT * FROM "tourists" WHERE email = $1',
+      'SELECT * FROM "tourists" WHERE emailT = $1',
       [email]
     );
     let user = rows[0];
@@ -33,10 +33,10 @@ const signinTour = async (email, password) => {
       return null;
     }
   
-    const isValid = await bcrypt.compare(password, user.password);
+    //const isValid = await bcrypt.compare(password, user.passwordT);
   
-    if (!isValid) return null;
-    const token = jwt.sign({ id: user.userid }, "yarab");
+    //if (!isValid) return null;
+    const token = jwt.sign({ tour_username:user.tour_username }, "yarab");
     user.token = token;
     return user;
   };

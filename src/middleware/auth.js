@@ -7,7 +7,7 @@ const auth= async (req,res)=>{
         
         const token= req.header('Authorization').replace('Bearer','');
         const decoded= jwt.verify(token,'yarab');
-        const user= await User.getById(decoded.id)
+        const user= await User.getByUsername(decoded.tourguide_username)
         if(!user) throw new Error()
         req.user=user
         req.token=token
