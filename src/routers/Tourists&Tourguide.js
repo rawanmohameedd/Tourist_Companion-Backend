@@ -6,8 +6,8 @@ const auth = require('../middleware/auth')
 
 router.post("/signupTourist", async (req, res) => {
   const user = req.body;
-  const existingusername = await UserT.getByUsername(user.tour_username);
-  const existingEmail = await UserT.getByEmail(user.email);
+  const existingusername = await UserT.getByUsernameT(user.tour_username) || await UserTG.getByUsernameTG(user.tourguide_username);
+  const existingEmail = await UserT.getByEmailT(user.emailT) || await UserTG.getByEmailTG(user.emailTG)
 
   if (existingusername || existingEmail) {
     return res.status(400).send({ message: "Email  or username is already in use" });
@@ -23,8 +23,8 @@ router.post("/signupTourist", async (req, res) => {
 
 router.post("/signupTourGuide", async (req, res) => {
   const user = req.body;
-  const existingusername = await UserTG.getByUsername(user.tourguide_username);
-  const existingEmail = await UserTG.getByEmail(user.email);
+  const existingusername = await UserT.getByUsernameT(user.tour_username) || await UserTG.getByUsernameTG(user.tourguide_username);
+  const existingEmail = await UserT.getByEmailT(user.emailT) || await UserTG.getByEmailTG(user.emailTG)
 
   if (existingusername || existingEmail) {
     return res.status(400).send({ message: "Email  or mobile is already in use" });
@@ -38,19 +38,37 @@ router.post("/signupTourGuide", async (req, res) => {
   });
 });
 
-router.post("/signin", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const user1 = await UserT.signinTour(email, password) || await UserTG.signinTourGuide(email, password);
-  //const user2 = await UserTG.signinTourGuide(email, password);
-  if (user1) {
-    res.status(200).send(user1);
-  } else {
-    res.status(400).send({ 
-      message: "email or Password Incorrect"
-    });
+router.post('/signin', async (req, res) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    console.log(req.body);
+
+    // Try to sign in as a tourist
+    const userTourist = await UserT.signinTour(email, password);
+    if (userTourist) {
+      return res.status(200).json(userTourist);
+    }
+
+    // Try to sign in as a tour guide
+    const userTourguide = await UserTG.signinTourGuide(email, password);
+    if (userTourguide) {
+      return res.status(200).json(userTourguide);
+    }
+
+    // If no user found, return error
+    res.status(400).json({ message: 'Email or password incorrect' });
+  } catch (error) {
+    console.error('Error in /signin route:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 
 module.exports = router;

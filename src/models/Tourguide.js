@@ -2,12 +2,12 @@ const pool = require("../database/postgres");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const getByUsername = async(username) => {
+const getByUsernameTG = async(username) => {
     const result = await pool.query('SELECT * FROM "tourguide" WHERE tourguide_username=$1',[username]);
     return result.rows.length > 0;
 };
 
-const getByEmail = async(email) => {
+const getByEmailTG = async(email) => {
     const result = await pool.query('SELECT * FROM "tourguide" WHERE emailTG=$1',[email]);
     return result.rows.length > 0;
 };
@@ -19,7 +19,7 @@ const createTourGuide = async (user) => {
 
     await pool.query(
         'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
-        [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.brithdayTG,user.spoken_langTG,user.passwordTG]
+        [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.brithdayTG,user.spoken_langTG,passwordHash]
     );
 };
 
@@ -32,18 +32,19 @@ const signinTourGuide = async (email, password) => {
     if (!user) {
     return null;
     }
+    const passwordHashSigned = await bcrypt.hash(password, salt);
 
-    //const isValid = await bcrypt.compare(password, user.passwordTG);
+    const isValid = await bcrypt.compare(passwordHashSigned, user.passwordTG);
 
-    //if (!isValid) return null;
+    if (!isValid) return null;
     const token = jwt.sign({ tourguide_username:user.tourguide_username } , "yarab");
     user.token = token;
     return user;
 };
 
 module.exports={
-    getByUsername,
-    getByEmail,
+    getByUsernameTG,
+    getByEmailTG,
     signinTourGuide,
     createTourGuide,
 }
