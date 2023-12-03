@@ -32,10 +32,9 @@ const signinTour = async (email, password) => {
     if (!user) {
       return null;
     }
-    const salt = await bcrypt.genSalt(8);
-    const passwordHashSigned = await bcrypt.hash(password, salt);
 
-    const isValid = await bcrypt.compare(passwordHashSigned, user.passwordT);
+    
+    const isValid = await bcrypt.compare(password, user.passwordt);
   
     if (!isValid) return null;
     const token = jwt.sign({ tour_username:user.tour_username }, "yarab");

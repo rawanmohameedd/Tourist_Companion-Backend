@@ -38,37 +38,20 @@ router.post("/signupTourGuide", async (req, res) => {
   });
 });
 
-router.post('/signin', async (req, res) => {
-  try {
-    const email = req.body.email;
-    const password = req.body.password;
+router.post("/signin", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  console.log(req.body)
+  const user1 = await UserT.signinTour(email, password) || await UserTG.signinTourGuide(email, password);
+  if (user1) {
+    res.status(200).send(user1);
+  } else {
+    res.status(400).send({ 
 
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
-    }
-
-    console.log(req.body);
-
-    // Try to sign in as a tourist
-    const userTourist = await UserT.signinTour(email, password);
-    if (userTourist) {
-      return res.status(200).json(userTourist);
-    }
-
-    // Try to sign in as a tour guide
-    const userTourguide = await UserTG.signinTourGuide(email, password);
-    if (userTourguide) {
-      return res.status(200).json(userTourguide);
-    }
-
-    // If no user found, return error
-    res.status(400).json({ message: 'Email or password incorrect' });
-  } catch (error) {
-    console.error('Error in /signin route:', error);
-    res.status(500).json({ message: 'Internal server error' });
+      message: "email or Password Incorrect"
+    });
   }
 });
-
 
 
 module.exports = router;

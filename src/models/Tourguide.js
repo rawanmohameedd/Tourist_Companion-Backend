@@ -25,16 +25,15 @@ const createTourGuide = async (user) => {
 
 const signinTourGuide = async (email, password) => {
     const { rows } = await pool.query(
-        'SELECT * FROM "tourguide" WHERE emailTG = $1',
+        'SELECT * FROM "tourguide" WHERE emailtg = $1',
         [email]
     );
     let user = rows[0];
+    
     if (!user) {
     return null;
     }
-    const passwordHashSigned = await bcrypt.hash(password, salt);
-
-    const isValid = await bcrypt.compare(passwordHashSigned, user.passwordTG);
+    const isValid = await bcrypt.compare(password, user.passwordtg);
 
     if (!isValid) return null;
     const token = jwt.sign({ tourguide_username:user.tourguide_username } , "yarab");
