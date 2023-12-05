@@ -36,5 +36,16 @@ router.post("/signinTourguide", async (req, res) => {
   }
 });
 
+router.get("/ProfileTourguide/:tourguide_username", auth, async (req, res) => {
+  const usernameTG = req.params.tourguide_username;
+  const user = await UserTG.getProfileData(usernameTG);
+  if(!user) {
+    return res.send({
+      message: "User not Found!"
+    })
+  }
+  res.send(user);
+});
+
 
 module.exports = router;

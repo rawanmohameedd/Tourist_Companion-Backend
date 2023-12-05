@@ -18,7 +18,7 @@ const createTourGuide = async (user) => {
     const passwordHash = await bcrypt.hash(user.passwordTG, salt);
 
     await pool.query(
-        'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6::date,$7,$8)',
         [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.brithdayTG,user.spoken_langTG,passwordHash]
     );
 };
@@ -41,9 +41,22 @@ const signinTourGuide = async (email, password) => {
     return user;
 };
 
+const getProfileData = async (username) => {
+    const { rows } = await pool.query('SELECT * FROM "tourguide" WHERE tourguide_username = $1', [username
+    ]);
+    const user = rows[0];
+    
+    if (!user) return null;
+    
+    user.passwordtg = undefined;
+    
+    return user;
+    };
+
 module.exports={
     getByUsernameTG,
     getByEmailTG,
-    signinTourGuide,
     createTourGuide,
+    signinTourGuide,
+    getProfileData
 }
