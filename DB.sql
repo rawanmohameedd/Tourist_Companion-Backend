@@ -38,3 +38,11 @@ create table museums (
 	model varchar(255),
 	foreign key (ticket_ID) references tickets(id) 
 );
+create table rating_system(
+	tourguuide_rate_id serial primary key,
+	tourguide_username varchar(20)  references tourguide,
+	tour_username varchar(20) references tourists,
+	rate int,
+	visit text,
+	date_of_the_visit date
+);
