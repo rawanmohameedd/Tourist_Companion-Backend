@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "28e4436e-b7d8-4c6d-ad50-eba8dab71c73",
+		"name": "Tourist Companion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31111057"
+	},
+	"item": [
+		{
+			"name": "Tourguide",
+			"item": [
+				{
+					"name": "signupTG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tourguide_username\": \"AnasCompiler\",\r\n    \"emailTG\": \"AnasHesham@gmail.com\",\r\n    \"first_nameTG\": \"Anas\",\r\n    \"last_nameTG\": \"Hesham\",\r\n    \"nationalidTG\": \"1234567890123\",\r\n    \"birthdayTG\": \"2001-01-12\",\r\n    \"spoken_langTG\": \"nodejs\",\r\n    \"passwordTG\": \"121Annas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/signupTG",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signupTG"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signinTG",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/signinTG",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signinTG"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tourist",
+			"item": [
+				{
+					"name": "signupT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tour_username\": \"HB\",\r\n    \"emailT\": \"Habiba@gmail.com\",\r\n    \"first_nameT\": \"Habiba\",\r\n    \"last_nameT\": \"Bastawe\",\r\n    \"nationalityT\":\"Indian\",\r\n    \"birthdayT\": \"2001-07-01\",\r\n    \"passwordT\": \"017Habiba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/signupT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signupT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signinT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailT\": \"Habiba@gmail.com\",\r\n    \"passwordT\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/signinT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signinT"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
