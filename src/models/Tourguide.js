@@ -1,27 +1,44 @@
-const TG = require("../postgres");
+const pool = require("../postgres");
 const bcrypt = require("bcrypt")
-const getByUsernameTG = async(username) => {
-    const result = await TG.query('SELECT * FROM "tourguide" WHERE tourguide_username=$1',[username]);
-    return result.rows[0];
+
+const getByUsernameTG = async (username) => {
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query('SELECT * FROM "tourguide" WHERE tourguide_username=$1', [username]);
+    client.release()
+    if (rowCount) {
+        return rows[0]
+    }
+    return null
 };
 
-const getByEmailTG = async(email) => {
-    const result = await TG.query('SELECT * FROM "tourguide" WHERE emailTG=$1',[email]);
-    return result.rows[0];
+const getByEmailTG = async (email) => {
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query('SELECT * FROM "tourguide" WHERE emailTG=$1', [email]);
+    client.release()
+    if (rowCount) {
+        return rows[0]
+    }
+    return null
 };
 
 const createTourGuide = async (user) => {
-    await TG.query(
-        'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6::date,$7,$8)',
-        [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.birthdayTG,user.spoken_langTG, user.encryptedpassword ]
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query('INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6::date,$7,$8) RETURNING tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG',
+        [user.tourguide_username, user.emailTG, user.first_nameTG, user.last_nameTG, user.nationalidTG, user.birthdayTG, user.spoken_langTG, user.encryptedpassword]
     );
+    client.release()
+    if (rowCount) {
+        return rows[0]
+    }
+    return null
 };
 
 const signinTourguide = async ({ emailTG, passwordTG }) => {
-
-    const { rows, rowCount } = await TG.query(
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query(
         'SELECT * FROM "tourguide" WHERE emailTG=$1 ', [emailTG]
     )
+    client.release()
     if (rowCount) {
         const isPasswordValid = await bcrypt.compare(passwordTG, rows[0].passwordtg);
 
@@ -35,19 +52,19 @@ const signinTourguide = async ({ emailTG, passwordTG }) => {
 
 };
 
-const getProfileTG = async (username)=>{
-    const {rows, rowCount} = await TG.query (
-      'SELECT * FROM tourguide WHERE tourguide_username = $1',[username]
+const getProfileTG = async (username) => {
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query(
+        'SELECT * FROM tourguide WHERE tourguide_username = $1', [username]
     )
-    console.log(rows[0])
-    console.log(username)
-    if(rowCount){
-    return rows[0]
+    client.release()
+    if (rowCount) {
+        return rows[0]
     }
     return null
-  }
+}
 
-module.exports={
+module.exports = {
     getByUsernameTG,
     getByEmailTG,
     createTourGuide,

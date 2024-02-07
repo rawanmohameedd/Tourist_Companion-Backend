@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
-const T= require('../Models/Tourist')
-const TG= require('../Models/Tourguide')
+const T = require('../Models/Tourist')
+const TG = require('../Models/Tourguide')
 require('dotenv').config()
 
 async function checkExistingUsername(username) {
@@ -14,20 +14,20 @@ async function checkExistingEmail(email) {
   return existingEmail;
 }
 
-function validPassword(password){
-    let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-  
-  if (password.match(regex)) 
-    return true; 
-  
-  return null
-  }
-  
-function validEmail(emailAdress){
-    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+function validPassword(password) {
+  let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-  if (emailAdress.match(regex)) 
-    return true; 
+  if (password.match(regex))
+    return true;
+
+  return null
+}
+
+function validEmail(emailAdress) {
+  let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  if (emailAdress.match(regex))
+    return true;
 
   return null
 }
@@ -37,20 +37,19 @@ function generateErrorMessage(statusCode, message) {
     message
   }
 }
-function ecncryptPassword(password){
+function ecncryptPassword(password) {
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
   return hash
 }
 
 function generateToken(email, role) {
-    const token = jwt.sign({ 
-      email,
-      role,
-    }, process.env.SECRET 
-    )
-    console.log('tokeeen',token)
-    return token
+  const token = jwt.sign({
+    email,
+    role,
+  }, process.env.SECRET
+  )
+  return token
 }
 
 module.exports = {

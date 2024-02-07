@@ -1,4 +1,4 @@
-const T = require('../Models/Tourist')
+const Tourist = require('../Models/Tourist')
 const user = require('../Utils/User')
 
 async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationalityT, birthdayT, passwordT }) {
@@ -23,11 +23,13 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
     }
     const encryptedpassword = user.ecncryptPassword(passwordT)
 
-    token = user.generateToken(emailT,"tourist")
-    let userT = { tour_username, emailT, first_nameT, last_nameT, nationalityT, birthdayT, encryptedpassword, token }
-    await T.createTourist(userT);
+    token = user.generateToken(emailT, "tourist")
+    const tourist = await Tourist.createTourist({ tour_username, emailT, first_nameT, last_nameT, nationalityT, birthdayT, encryptedpassword, token });
+    if (!tourist) {
+        return user.generateErrorMessage(400, "Internel Server Error")
+    }
     return {
-        value: userT
+        value: tourist
     }
 }
 
@@ -36,17 +38,16 @@ async function signinT({ emailT, passwordT }) {
     if (!emailT || !passwordT) {
         return user.generateErrorMessage(400, "Missing Required Fields")
     }
-    const userT = await T.signinTour({ emailT, passwordT })
+    const tourist = await Tourist.signinTour({ emailT, passwordT })
 
-    if (!userT) {
+    if (!tourist) {
         return user.generateErrorMessage(404, "Authentication Failed: Email or Password not Correct")
     }
 
-    const token = user.generateToken(emailT,"tourist")
+    const token = user.generateToken(emailT, "tourist")
 
     return {
-        value: userT,
-        token
+        value: tourist
     }
 }
 
