@@ -7,7 +7,6 @@ Create Table tourists(
 	brithdayT date,
 	passwordT varchar(255),
     profile_photoT varchar(255),
-	token VARCHAR(255),
 	primary key(tour_username)
 );
 
@@ -22,7 +21,6 @@ Create Table tourGuide(
 	passwordTG varchar(255),
     profile_photoTG varchar(255),
 	licenseTG varchar(255),
-	token VARCHAR(255),
 	primary key(tourguide_username)
 );
 

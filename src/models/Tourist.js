@@ -16,8 +16,8 @@ const getByEmailT = async (email) => {
 const createTourist = async (user) => {
 
     await T.query(
-        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,brithdayT,passwordT,token) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
-        [user.tour_username, user.emailT, user.first_nameT, user.last_nameT, user.nationalityT, user.birthdayT, user.encryptedpassword, user.token]
+        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,brithdayT,passwordT) VALUES ($1,$2,$3,$4,$5,$6,$7)',
+        [user.tour_username, user.emailT, user.first_nameT, user.last_nameT, user.nationalityT, user.birthdayT, user.encryptedpassword ]
     );
 };
 
