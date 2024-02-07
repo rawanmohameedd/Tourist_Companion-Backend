@@ -19,4 +19,20 @@ Router.post("/signupTG", async(req,res)=>{
         return res.send(created)
     }
 })
+
+Router.post("/signinTG", async(req,res)=>{
+    const payload = {
+        emailTG: req.body.emailTG,
+        passwordTG: req.body.passwordTG,
+    };
+    const result = await TG.SigninTG(payload);
+    
+    if (result) {
+        return res.send(result);
+    }
+    res.status(result.statusCode).send({
+        message: result.message,
+    });
+})
+
 module.exports=Router

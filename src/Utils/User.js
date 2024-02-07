@@ -20,8 +20,7 @@ function validPassword(password){
   if (password.match(regex)) 
     return true; 
   
-  else 
-    return false; 
+  return null
   }
   
 function validEmail(emailAdress){
@@ -30,8 +29,7 @@ function validEmail(emailAdress){
   if (emailAdress.match(regex)) 
     return true; 
 
-  else 
-    return false; 
+  return null
 }
 function generateErrorMessage(statusCode, message) {
   return {
@@ -45,11 +43,13 @@ function ecncryptPassword(password){
   return hash
 }
 
-function generateToken(email) {
+function generateToken(email, role) {
     const token = jwt.sign({ 
-      email
+      email,
+      role,
     }, process.env.SECRET 
     )
+    console.log('tokeeen',token)
     return token
 }
 

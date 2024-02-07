@@ -1,5 +1,5 @@
 const TG = require("../postgres");
-
+const bcrypt = require("bcrypt")
 const getByUsernameTG = async(username) => {
     const result = await TG.query('SELECT * FROM "tourguide" WHERE tourguide_username=$1',[username]);
     return result.rows.length > 0;
@@ -17,40 +17,28 @@ const createTourGuide = async (user) => {
     );
 };
 
-const signinTourGuide = async (email, password) => {
-    const { rows } = await TG.query(
-        'SELECT * FROM "tourguide" WHERE emailtg = $1',
-        [email]
-    );
-    let user = rows[0];
-    
-    if (!user) {
-    return null;
-    }
-    const isValid = await bcrypt.compare(password, user.passwordtg);
+const signinTourguide = async ({ emailTG, passwordTG }) => {
 
-    if (!isValid) return null;
-    const token = jwt.sign({ tourguide_username:user.tourguide_username } , "yarab");
-    user.token = token;
-    return user;
+    const { rows, rowCount } = await TG.query(
+        'SELECT * FROM "tourguide" WHERE emailTG=$1 ', [emailTG]
+    )
+    if (rowCount) {
+        const isPasswordValid = await bcrypt.compare(passwordTG, rows[0].passwordtg);
+
+        if (isPasswordValid) {
+            // Remove the password before returning the user
+            delete rows[0].passwordTG;
+            return rows[0];
+        }
+    }
+    return null
+
 };
 
-const getProfileData = async (username) => {
-    const { rows } = await TG.query('SELECT * FROM "tourguide" WHERE tourguide_username = $1', [username
-    ]);
-    const user = rows[0];
-    
-    if (!user) return null;
-    
-    user.passwordtg = undefined;
-    
-    return user;
-    };
 
 module.exports={
     getByUsernameTG,
     getByEmailTG,
     createTourGuide,
-    // signinTourGuide,
-    // getProfileData
+    signinTourguide,
 }

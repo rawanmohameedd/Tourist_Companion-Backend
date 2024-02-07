@@ -23,7 +23,7 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
     }
     const encryptedpassword = user.ecncryptPassword(passwordT)
 
-    token = user.generateToken(emailT)
+    token = user.generateToken(emailT,"tourist")
     let userT = { tour_username, emailT, first_nameT, last_nameT, nationalityT, birthdayT, encryptedpassword, token }
     await T.createTourist(userT);
     return {
@@ -36,15 +36,13 @@ async function signinT({ emailT, passwordT }) {
     if (!emailT || !passwordT) {
         return user.generateErrorMessage(400, "Missing Required Fields")
     }
-    // const encryptedpasswordT = user.ecncryptPassword(passwordT)
     const userT = await T.signinTour({ emailT, passwordT })
-    // console.log(userT)
 
     if (!userT) {
         return user.generateErrorMessage(404, "Authentication Failed: Email or Password not Correct")
     }
 
-    const token = user.generateToken(emailT)
+    const token = user.generateToken(emailT,"tourist")
 
     return {
         value: userT,
@@ -52,11 +50,11 @@ async function signinT({ emailT, passwordT }) {
     }
 }
 
-async function profileT({tour_username}){
+async function profileT(tour_username){
     if(!tour_username){
         user.generateErrorMessage(400, 'Username not exist')
     }
-    const userT= await T.getProfileT
+    const userT= await T.getProfileT(tour_username)
     if(!userT){
         user.generateErrorMessage(400, 'Username not exist')
     }

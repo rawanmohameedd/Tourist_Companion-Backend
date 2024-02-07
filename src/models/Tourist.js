@@ -27,8 +27,6 @@ const signinTour = async ({ emailT, passwordT }) => {
         'SELECT * FROM "tourists" WHERE emailT=$1 ', [emailT]
     )
     if (rowCount) {
-        console.log(passwordT)
-        console.log(rows[0].passwordt)
         const isPasswordValid = await bcrypt.compare(passwordT, rows[0].passwordt);
 
         if (isPasswordValid) {

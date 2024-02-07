@@ -30,6 +30,25 @@ async function SignupTG ({tourguide_username ,emailTG,first_nameTG,last_nameTG,n
         value: userTG
     }
 }
+async function SigninTG({ emailTG, passwordTG }) {
+
+    if (!emailTG || !passwordTG) {
+        return user.generateErrorMessage(400, "Missing Required Fields")
+    }
+    const userTG = await TG.signinTourguide({ emailTG, passwordTG })
+
+    if (!userTG) {
+        return user.generateErrorMessage(404, "Authentication Failed: Email or Password not Correct")
+    }
+
+    const token = user.generateToken(emailTG)
+
+    return {
+        value: userTG,
+        token
+    }
+}
 module.exports={
     SignupTG,
+    SigninTG,
 }
