@@ -1,46 +1,39 @@
-const pool = require("../database/postgres");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
+const T = require("../postgres");
+const bcrypt= require("bcrypt")
 const getByUsernameT = async(username) => {
-    const result = await pool.query('SELECT * FROM "tourists" WHERE tour_username=$1',[username]);
+    const result = await T.query('SELECT * FROM "tourists" WHERE tour_username=$1',[username]);
     return result.rows.length > 0 ;
 };
 
 const getByEmailT = async(email) => {
-    const result = await pool.query('SELECT * FROM "tourists" WHERE emailT=$1',[email]);
+    const result = await T.query('SELECT * FROM "tourists" WHERE emailT=$1',[email]);
     return result.rows.length > 0;
 };
 
 const createTourist = async (user) => {
-  //Hashing user password
-    const salt = await bcrypt.genSalt(8);
-    const passwordHash = await bcrypt.hash(user.passwordT, salt);
 
-    await pool.query(
-        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,brithdayT,passwordT) VALUES ($1,$2,$3,$4,$5,$6,$7)',
-        [user.tour_username,user.emailT,user.first_nameT,user.last_nameT,user.nationalityT,user.brithdayT,passwordHash]
+    await T.query(
+        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,brithdayT,passwordT,token) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
+        [user.tour_username,user.emailT,user.first_nameT,user.last_nameT,user.nationalityT,user.birthdayT,user.encryptedpassword,user.token]
     );
 };
 
-const signinTour = async (email, password) => {
-    const { rows } = await pool.query(
-      'SELECT * FROM "tourists" WHERE emailT = $1',
-      [email]
-    );
-    let user = rows[0];
-    if (!user) {
-      return null;
+const signinTour = async (email,password) => {
+    const userT= await T.query(
+      'SELECT * FROM "tourists" WHERE emailT=$1 ',[email]
+    )
+    if (userT.length > 0) {
+      const isPasswordValid = await bcrypt.compare(password, userT[0].passwordT);
+      
+      if (isPasswordValid) {
+          // Remove the password before returning the user
+          delete userT[0].passwordT;
+          return userT[0];
+      }
     }
-
-    
-    const isValid = await bcrypt.compare(password, user.passwordt);
-  
-    if (!isValid) return null;
-    const token = jwt.sign({ tour_username:user.tour_username }, "yarab");
-    user.token = token;
-    return user;
-  };
+    console.log(password)
+    console.log(userT)
+};
 
 module.exports={
     getByUsernameT,

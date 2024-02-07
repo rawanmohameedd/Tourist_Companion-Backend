@@ -1,30 +1,24 @@
-const pool = require("../database/postgres");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const TG = require("../postgres");
 
 const getByUsernameTG = async(username) => {
-    const result = await pool.query('SELECT * FROM "tourguide" WHERE tourguide_username=$1',[username]);
+    const result = await TG.query('SELECT * FROM "tourguide" WHERE tourguide_username=$1',[username]);
     return result.rows.length > 0;
 };
 
 const getByEmailTG = async(email) => {
-    const result = await pool.query('SELECT * FROM "tourguide" WHERE emailTG=$1',[email]);
+    const result = await TG.query('SELECT * FROM "tourguide" WHERE emailTG=$1',[email]);
     return result.rows.length > 0;
 };
 
 const createTourGuide = async (user) => {
-    //Hashing user password
-    const salt = await bcrypt.genSalt(8);
-    const passwordHash = await bcrypt.hash(user.passwordTG, salt);
-
-    await pool.query(
-        'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG) VALUES ($1,$2,$3,$4,$5,$6::date,$7,$8)',
-        [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.brithdayTG,user.spoken_langTG,passwordHash]
+    await TG.query(
+        'INSERT INTO "tourguide" (tourguide_username,emailTG,first_nameTG,last_nameTG,nationalidTG,brithdayTG,spoken_langTG,passwordTG,token) VALUES ($1,$2,$3,$4,$5,$6::date,$7,$8,$9)',
+        [user.tourguide_username,user.emailTG,user.first_nameTG,user.last_nameTG,user.nationalidTG,user.birthdayTG,user.spoken_langTG, user.encryptedpassword , user.token]
     );
 };
 
 const signinTourGuide = async (email, password) => {
-    const { rows } = await pool.query(
+    const { rows } = await TG.query(
         'SELECT * FROM "tourguide" WHERE emailtg = $1',
         [email]
     );
@@ -42,7 +36,7 @@ const signinTourGuide = async (email, password) => {
 };
 
 const getProfileData = async (username) => {
-    const { rows } = await pool.query('SELECT * FROM "tourguide" WHERE tourguide_username = $1', [username
+    const { rows } = await TG.query('SELECT * FROM "tourguide" WHERE tourguide_username = $1', [username
     ]);
     const user = rows[0];
     
@@ -57,6 +51,6 @@ module.exports={
     getByUsernameTG,
     getByEmailTG,
     createTourGuide,
-    signinTourGuide,
-    getProfileData
+    // signinTourGuide,
+    // getProfileData
 }
