@@ -1,8 +1,11 @@
 const T = require("../postgres");
 const bcrypt = require("bcrypt")
+
 const getByUsernameT = async (username) => {
-    const result = await T.query('SELECT * FROM "tourists" WHERE tour_username=$1', [username]);
-    return result.rows.length > 0;
+  const { rows, rowCount } = await T.query(
+    'SELECT * FROM "tourists" WHERE tour_username=$1 ', [username]
+    );
+    return rowCount > 0;
 };
 
 const getByEmailT = async (email) => {
@@ -38,9 +41,20 @@ const signinTour = async ({ emailT, passwordT }) => {
 
 };
 
+const getProfileT = async ({username})=>{
+  const {rows, rowCount} = await T.query (
+    'SELECT * FROM tourists WHERE tour_username = $1',[username]
+  )
+  if(rowCount){
+  return rows[0]
+  }
+  return null
+}
+
 module.exports = {
     getByUsernameT,
     getByEmailT,
     signinTour,
     createTourist,
+    getProfileT
 }

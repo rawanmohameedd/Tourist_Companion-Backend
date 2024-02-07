@@ -34,4 +34,11 @@ Router.post("/signinT", async(req,res)=>{
         message: result.message,
     });
 })
+
+Router.get("/getProfileT",auth, async(req,res)=>{
+    console.log(req)
+    const profile = await T.profileT(req.user)
+    console.log(req)
+    res.send(profile)
+})
 module.exports=Router

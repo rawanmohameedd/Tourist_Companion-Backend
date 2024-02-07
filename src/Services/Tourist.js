@@ -50,11 +50,20 @@ async function signinT({ emailT, passwordT }) {
         value: userT,
         token
     }
-
-
 }
 
+async function profileT({tour_username}){
+    if(!tour_username){
+        user.generateErrorMessage(400, 'Username not exist')
+    }
+    const userT= await T.getProfileT
+    if(!userT){
+        user.generateErrorMessage(400, 'Username not exist')
+    }
+    return userT
+}
 module.exports = {
     SignupT,
-    signinT
+    signinT,
+    profileT
 }
