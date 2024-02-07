@@ -36,8 +36,8 @@ async function signinT({ emailT, passwordT }) {
     if (!emailT || !passwordT) {
         return user.generateErrorMessage(400, "Missing Required Fields")
     }
-    const encryptedpasswordT = user.ecncryptPassword(passwordT)
-    const userT = await T.signinTour({ emailT, encryptedpasswordT })
+    // const encryptedpasswordT = user.ecncryptPassword(passwordT)
+    const userT = await T.signinTour({ emailT, passwordT })
     // console.log(userT)
 
     if (!userT) {

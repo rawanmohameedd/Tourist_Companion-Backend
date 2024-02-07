@@ -18,15 +18,15 @@ const createTourist = async (user) => {
     );
 };
 
-const signinTour = async ({ emailT, encryptedpasswordT }) => {
+const signinTour = async ({ emailT, passwordT }) => {
 
     const { rows, rowCount } = await T.query(
         'SELECT * FROM "tourists" WHERE emailT=$1 ', [emailT]
     )
     if (rowCount) {
-        console.log(encryptedpasswordT)
+        console.log(passwordT)
         console.log(rows[0].passwordt)
-        const isPasswordValid = await bcrypt.compare(encryptedpasswordT, rows[0].passwordt);
+        const isPasswordValid = await bcrypt.compare(passwordT, rows[0].passwordt);
 
         if (isPasswordValid) {
             // Remove the password before returning the user
