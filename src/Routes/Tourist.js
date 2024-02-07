@@ -1,9 +1,10 @@
 const express = require("express")
 const Router = new express.Router()
-const T = require('../Services/Tourist')
-const auth = require ("../middleware/auth")
 
-Router.post("/signupT", async(req,res)=>{
+const touristServices = require('../Services/Tourist')
+const auth = require("../middleware/auth")
+
+Router.post("/signupT", async (req, res) => {
     const payload = {
         tour_username: req.body.tour_username,
         emailT: req.body.emailT,
@@ -13,29 +14,31 @@ Router.post("/signupT", async(req,res)=>{
         birthdayT: req.body.birthdayT,
         passwordT: req.body.passwordT,
     };
-    const created= await T.SignupT(payload)
-    console.log(created)
-    if(created){
-        return res.send(created)
+    const result = await touristServices.SignupT(payload)
+    if (result.value) {
+        return res.send(result.value)
     }
+    res.status(result.statusCode).send({
+        message: result.message
+    })
 })
 
-Router.post("/signinT", async(req,res)=>{
+Router.post("/signinT", async (req, res) => {
     const payload = {
         emailT: req.body.emailT,
         passwordT: req.body.passwordT,
     };
-    const result = await T.signinT(payload);
-    
-    if (result) {
-        return res.send(result);
+    const result = await touristServices.signinT(payload);
+
+    if (result.value) {
+        return res.send(result.value);
     }
     res.status(result.statusCode).send({
         message: result.message,
     });
 })
 
-Router.get("/getProfileT", auth, async (req, res) => {
+Router.get("/profileT", auth, async (req, res) => {
     try {
         return res.send(req.user)
     } catch (error) {
@@ -46,4 +49,4 @@ Router.get("/getProfileT", auth, async (req, res) => {
     }
 });
 
-module.exports=Router
+module.exports = Router

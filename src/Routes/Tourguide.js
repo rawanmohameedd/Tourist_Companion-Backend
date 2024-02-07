@@ -1,9 +1,9 @@
 const express = require("express")
 const Router = new express.Router()
-const TG = require('../Services/Tourguide')
+const tourguideServices = require('../Services/Tourguide')
 const auth = require('../middleware/auth')
 
-Router.post("/signupTG", async(req,res)=>{
+Router.post("/signupTG", async (req, res) => {
     const payload = {
         tourguide_username: req.body.tourguide_username,
         emailTG: req.body.emailTG,
@@ -13,23 +13,25 @@ Router.post("/signupTG", async(req,res)=>{
         birthdayTG: req.body.birthdayTG,
         spoken_langTG: req.body.spoken_langTG,
         passwordTG: req.body.passwordTG,
-      };
-    const created= await TG.SignupTG(payload)
-    console.log(created)
-    if(created){
-        return res.send(created)
+    };
+    const result = await tourguideServices.SignupTG(payload)
+    if (result.value) {
+        return res.send(result.value)
     }
+    res.status(result.statusCode).send({
+        message: result.message
+    })
 })
 
-Router.post("/signinTG", async(req,res)=>{
+Router.post("/signinTG", async (req, res) => {
     const payload = {
         emailTG: req.body.emailTG,
         passwordTG: req.body.passwordTG,
     };
-    const result = await TG.SigninTG(payload);
-    
-    if (result) {
-        return res.send(result);
+    const result = await tourguideServices.SigninTG(payload);
+
+    if (result.value) {
+        return res.send(result.value);
     }
     res.status(result.statusCode).send({
         message: result.message,
@@ -47,4 +49,4 @@ Router.get("/getProfileTG", auth, async (req, res) => {
     }
 });
 
-module.exports=Router
+module.exports = Router
