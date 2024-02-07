@@ -1,6 +1,7 @@
 const express = require("express")
 const Router = new express.Router()
 const TG = require('../Services/Tourguide')
+const auth = require('../middleware/auth')
 
 Router.post("/signupTG", async(req,res)=>{
     const payload = {
@@ -34,5 +35,16 @@ Router.post("/signinTG", async(req,res)=>{
         message: result.message,
     });
 })
+
+Router.get("/getProfileTG", auth, async (req, res) => {
+    try {
+        return res.send(req.user)
+    } catch (error) {
+        console.error("Error fetching profile:", error.message);
+        res.status(500).send({
+            message: "Internal Server Error"
+        });
+    }
+});
 
 module.exports=Router

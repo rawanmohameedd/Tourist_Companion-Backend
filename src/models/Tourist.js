@@ -5,12 +5,12 @@ const getByUsernameT = async (username) => {
   const { rows, rowCount } = await T.query(
     'SELECT * FROM "tourists" WHERE tour_username=$1 ', [username]
     );
-    return rowCount > 0;
+    return rows[0];
 };
 
 const getByEmailT = async (email) => {
     const result = await T.query('SELECT * FROM "tourists" WHERE emailT=$1', [email]);
-    return result.rows.length > 0;
+    return result.rows[0];
 };
 
 const createTourist = async (user) => {
@@ -39,10 +39,12 @@ const signinTour = async ({ emailT, passwordT }) => {
 
 };
 
-const getProfileT = async ({username})=>{
+const getProfileT = async (username)=>{
   const {rows, rowCount} = await T.query (
     'SELECT * FROM tourists WHERE tour_username = $1',[username]
   )
+  console.log(rows[0])
+  console.log(username)
   if(rowCount){
   return rows[0]
   }

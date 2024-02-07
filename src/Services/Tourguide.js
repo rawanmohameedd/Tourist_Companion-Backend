@@ -23,7 +23,7 @@ async function SignupTG ({tourguide_username ,emailTG,first_nameTG,last_nameTG,n
     }
     const encryptedpassword = user.ecncryptPassword(passwordTG)
 
-    token= user.generateToken(emailTG)
+    token= user.generateToken(emailTG,"tourguide")
     let userTG={tourguide_username ,emailTG,first_nameTG,last_nameTG,nationalidTG,birthdayTG,spoken_langTG,encryptedpassword,token}
     await TG.createTourGuide(userTG);
     return {
@@ -41,7 +41,7 @@ async function SigninTG({ emailTG, passwordTG }) {
         return user.generateErrorMessage(404, "Authentication Failed: Email or Password not Correct")
     }
 
-    const token = user.generateToken(emailTG)
+    const token = user.generateToken(emailTG,"tourguide")
 
     return {
         value: userTG,

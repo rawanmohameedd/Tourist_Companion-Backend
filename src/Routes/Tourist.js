@@ -12,7 +12,7 @@ Router.post("/signupT", async(req,res)=>{
         nationalityT: req.body.nationalityT,
         birthdayT: req.body.birthdayT,
         passwordT: req.body.passwordT,
-      };
+    };
     const created= await T.SignupT(payload)
     console.log(created)
     if(created){
@@ -35,10 +35,15 @@ Router.post("/signinT", async(req,res)=>{
     });
 })
 
-Router.get("/getProfileT",auth, async(req,res)=>{
-    console.log(req)
-    const profile = await T.profileT(req.user)
-    console.log(req)
-    res.send(profile)
-})
+Router.get("/getProfileT", auth, async (req, res) => {
+    try {
+        return res.send(req.user)
+    } catch (error) {
+        console.error("Error fetching profile:", error.message);
+        res.status(500).send({
+            message: "Internal Server Error"
+        });
+    }
+});
+
 module.exports=Router

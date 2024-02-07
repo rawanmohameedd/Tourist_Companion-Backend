@@ -6,14 +6,19 @@ const auth = async (req, res, next) => {
     try {
         const token = req.header("Authorization").replace("Bearer ", "");
         const decoded = jwt.verify(token, process.env.SECRET);
+        // console.log(decoded)
         let user;
-        if (decoded.userType === 'tourist') {
+        if (!decoded.email || !decoded.role) {
+            throw new Error("Invalid token payload");
+        }
+        if (decoded.role === 'tourist') {
             user = await T.getByEmailT(decoded.email);
-        } else if (decoded.userType === 'tourguide') {
+        } else if (decoded.role === 'tourguide') {
             user = await TG.getByEmailTG(decoded.email);
         }
         if (!user) throw new Error("User not found");
         req.user = user;
+        // console.log(user)
         req.token = token;
         next();
     } catch (error) {
