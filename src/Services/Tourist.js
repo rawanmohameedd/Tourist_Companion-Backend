@@ -29,7 +29,8 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
         return user.generateErrorMessage(400, "Internel Server Error")
     }
     return {
-        value: tourist
+        value: tourist,
+        token
     }
 }
 
@@ -47,7 +48,8 @@ async function signinT({ emailT, passwordT }) {
     const token = user.generateToken(emailT, "tourist")
 
     return {
-        value: tourist
+        value: tourist,
+        token
     }
 }
 

@@ -31,14 +31,15 @@ Router.post("/signinT", async (req, res) => {
     const result = await touristServices.signinT(payload);
 
     if (result.value) {
-        return res.send(result.value);
+        console.log(result)
+        return res.send(result);
     }
     res.status(result.statusCode).send({
         message: result.message,
     });
 })
 
-Router.get("/profileT", auth, async (req, res) => {
+Router.get("/ProfileT", auth, async (req, res) => {
     try {
         return res.send(req.user)
     } catch (error) {

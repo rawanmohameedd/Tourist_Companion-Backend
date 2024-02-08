@@ -32,10 +32,10 @@ create table tickets (
 );
 create table museums (
 	musid serial primary key,
+	museum_name varchar(255),
 	ticket_ID int,
 	museinfo text,
 	map varchar(255),
-	model varchar(255),
 	foreign key (ticket_ID) references tickets(id) 
 );
 create table rating_system(

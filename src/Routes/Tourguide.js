@@ -31,14 +31,15 @@ Router.post("/signinTG", async (req, res) => {
     const result = await tourguideServices.SigninTG(payload);
 
     if (result.value) {
-        return res.send(result.value);
+        console.log(result)
+        return res.send(result);
     }
     res.status(result.statusCode).send({
         message: result.message,
     });
 })
 
-Router.get("/getProfileTG", auth, async (req, res) => {
+Router.get("/ProfileTG", auth, async (req, res) => {
     try {
         return res.send(req.user)
     } catch (error) {
