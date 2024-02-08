@@ -24,20 +24,16 @@ Create Table tourGuide(
 	primary key(tourguide_username)
 );
 
-create table tickets (
-	id serial primary key,
-	tourist int,
-	adult int,
-	student int
-);
 create table museums (
 	musid serial primary key,
 	museum_name varchar(255),
-	ticket_ID int,
+	ticket_tourist varchar(10),
+	ticket_adult varchar(10),
+	ticket_student varchar(10),
 	museinfo text,
-	map varchar(255),
-	foreign key (ticket_ID) references tickets(id) 
+	map varchar(255)
 );
+
 create table rating_system(
 	tourguuide_rate_id serial primary key,
 	tourguide_username varchar(20)  references tourguide,
