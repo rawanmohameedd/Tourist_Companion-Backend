@@ -1,8 +1,10 @@
 const express = require("express")
 const Router = new express.Router()
-
 const touristServices = require('../Services/Tourist')
 const auth = require("../middleware/auth")
+const upload = require("../Utils/multerSetup")
+
+
 
 Router.post("/signupT", async (req, res) => {
     const payload = {
@@ -49,5 +51,20 @@ Router.get("/ProfileT", auth, async (req, res) => {
         });
     }
 });
+
+Router.put("/uploadT", auth, upload.single('image'), async (req, res) => {
+    if (!req.file) {
+        return res.send("not file uploaded")
+    }
+    const url = req.file.path
+    const result = await touristServices.uploadPhoto(url, req.user.tour_username)
+    if (result.value) {
+        return res.send("file uploaded sucessfully")
+
+    }
+    res.status(400).send({
+        message: result.message,
+    });
+})
 
 module.exports = Router

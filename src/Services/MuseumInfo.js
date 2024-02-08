@@ -1,4 +1,4 @@
-const Museum = require ('../Models/MuseumInfo')
+const Museum = require('../Models/MuseumInfo')
 
 async function allMuseums() {
     try {
@@ -16,17 +16,17 @@ async function allMuseums() {
 }
 
 
-async function oneMuseum (musid){
-    try{
+async function oneMuseum(musid) {
+    try {
         const museum = await Museum.getById(musid)
 
-        if(!museum){
-            return { error: "Museum not found"}
+        if (!museum) {
+            return { error: "Museum not found" }
         }
-        return { value: museum}
+        return { value: museum }
 
-    } catch (error){
-        return { error: "Faild to fetch this museum"}
+    } catch (error) {
+        return { error: "Faild to fetch this museum" }
     }
 }
 

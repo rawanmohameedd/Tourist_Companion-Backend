@@ -64,10 +64,21 @@ const getProfileTG = async (username) => {
     return null
 }
 
+const uploadPhoto = async (url, username) => {
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query('UPDATE tourguide SET profile_photoTG=$1 where tourguide_username = $2', [url, username])
+    client.release()
+    if (rowCount) {
+        return true
+    }
+    return false
+}
+
 module.exports = {
     getByUsernameTG,
     getByEmailTG,
     createTourGuide,
     signinTourguide,
-    getProfileTG
+    getProfileTG,
+    uploadPhoto
 }

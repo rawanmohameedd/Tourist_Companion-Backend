@@ -53,8 +53,19 @@ async function signinT({ emailT, passwordT }) {
     }
 }
 
+async function uploadPhoto(url, username) {
+    const tourist = await Tourist.uploadPhoto(url, username)
+    console.log(tourist)
+    if (!tourist) {
+        return user.generateErrorMessage("400", "tourist not exist")
+    }
+    return { value: tourist }
+
+}
+
 
 module.exports = {
     SignupT,
     signinT,
+    uploadPhoto
 }

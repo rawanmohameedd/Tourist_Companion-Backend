@@ -50,7 +50,18 @@ async function SigninTG({ emailTG, passwordTG }) {
         token
     }
 }
+
+async function uploadPhoto(url, username) {
+    const tourguide = await Tourguide.uploadPhoto(url, username)
+    if (!tourguide) {
+        return user.generateErrorMessage("400", "tourguide not exist")
+    }
+    return { value: tourguide }
+
+}
+
 module.exports = {
     SignupTG,
     SigninTG,
+    uploadPhoto
 }
