@@ -15,6 +15,7 @@ app.use(TourguideRouter)
 app.use(TouristRouter)
 app.use(MuseumRouter)
 app.use(SearchRouter)
+app.use(express.static('uploads'));
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is Running on port: ${process.env.PORT}`)

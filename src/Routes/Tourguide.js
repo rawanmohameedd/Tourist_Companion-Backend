@@ -17,7 +17,7 @@ Router.post("/signupTG", async (req, res) => {
     };
     const result = await tourguideServices.SignupTG(payload)
     if (result.value) {
-        return res.send(result.value)
+        return res.send(result)
     }
     res.status(result.statusCode).send({
         message: result.message

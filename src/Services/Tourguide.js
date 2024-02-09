@@ -29,7 +29,10 @@ async function SignupTG({ tourguide_username, emailTG, first_nameTG, last_nameTG
         return user.generateErrorMessage(400, "Internal Server Error")
     }
 
-    return { value: tourguide }
+    return { 
+        value: tourguide,
+        token 
+    }
 
 }
 async function SigninTG({ emailTG, passwordTG }) {
