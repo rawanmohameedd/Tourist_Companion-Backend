@@ -42,3 +42,5 @@ create table rating_system(
 	visit text,
 	date_of_the_visit date
 );
+
+alter table museums add column musuem_image varchar(255)
