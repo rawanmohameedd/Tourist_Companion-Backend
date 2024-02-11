@@ -5,8 +5,9 @@ const auth = require('../middleware/auth')
 const upload = require("../Utils/multerSetup")
 
 Router.post("/signupTG", async (req, res) => {
-    const payload = {
-        tourguide_username: req.body.tourguide_username,
+    const tourguide_username= req.body.tourguide_username
+    const payload = { 
+        tourguide_username: tourguide_username.toLowerCase(),
         emailTG: req.body.emailTG,
         first_nameTG: req.body.first_nameTG,
         last_nameTG: req.body.last_nameTG,

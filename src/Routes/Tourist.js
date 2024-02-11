@@ -7,8 +7,9 @@ const upload = require("../Utils/multerSetup")
 
 
 Router.post("/signupT", async (req, res) => {
-    const payload = {
-        tour_username: req.body.tour_username,
+    const tour_username= req.body.tour_username
+    const payload = { 
+        tour_username: tour_username.toLowerCase(),
         emailT: req.body.emailT,
         first_nameT: req.body.first_nameT,
         last_nameT: req.body.last_nameT,

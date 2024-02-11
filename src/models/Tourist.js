@@ -68,14 +68,19 @@ const getProfileT = async (username) => {
 }
 
 const uploadPhoto = async (url, username) => {
-    const client = await pool.connect()
-    const { rows, rowCount } = await client.query('UPDATE tourists SET profile_photoT=$1 where tour_username=$2', [url, username])
-    client.release()
-    if (rowCount) {
-        return true
+    try {
+        const client = await pool.connect();
+        const { rows, rowCount } = await client.query('UPDATE tourists SET profile_photoT=$1 WHERE tour_username=$2', [url, username]);
+        client.release();
+        if (rowCount) {
+            return { success: true };
+        }
+        return { success: false, message: "Failed to update profile photo" };
+    } catch (error) {
+        console.error("Error uploading photo:", error);
+        return { success: false, message: "Internal Server Error" };
     }
-    return false
-}
+};
 
 module.exports = {
     getByUsernameT,
