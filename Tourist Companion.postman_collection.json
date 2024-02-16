@@ -308,6 +308,22 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find a guide by userename",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Find a guide by spoken language",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}
