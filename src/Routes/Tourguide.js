@@ -8,7 +8,7 @@ Router.post("/signupTG", async (req, res) => {
     const tourguide_username= req.body.tourguide_username
     const payload = { 
         tourguide_username: tourguide_username.toLowerCase(),
-        emailTG: req.body.emailTG,
+        emailTG: req.body.emailTG.toLowerCase(),
         first_nameTG: req.body.first_nameTG,
         last_nameTG: req.body.last_nameTG,
         nationalidTG: req.body.nationalidTG,
@@ -27,7 +27,7 @@ Router.post("/signupTG", async (req, res) => {
 
 Router.post("/signinTG", async (req, res) => {
     const payload = {
-        emailTG: req.body.emailTG,
+        emailTG: req.body.emailTG.toLowerCase(),
         passwordTG: req.body.passwordTG,
     };
     const result = await tourguideServices.SigninTG(payload);

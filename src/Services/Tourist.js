@@ -30,7 +30,7 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
     }
     return {
         value: tourist,
-        token
+        token,
     }
 }
 
@@ -49,7 +49,7 @@ async function signinT({ emailT, passwordT }) {
 
     return {
         value: tourist,
-        token
+        token,
     }
 }
 

@@ -10,7 +10,7 @@ Router.post("/signupT", async (req, res) => {
     const tour_username= req.body.tour_username
     const payload = { 
         tour_username: tour_username.toLowerCase(),
-        emailT: req.body.emailT,
+        emailT: req.body.emailT.toLowerCase(),
         first_nameT: req.body.first_nameT,
         last_nameT: req.body.last_nameT,
         nationalityT: req.body.nationalityT,
@@ -28,7 +28,7 @@ Router.post("/signupT", async (req, res) => {
 
 Router.post("/signinT", async (req, res) => {
     const payload = {
-        emailT: req.body.emailT,
+        emailT: req.body.emailT.toLowerCase(),
         passwordT: req.body.passwordT,
     };
     const result = await touristServices.signinT(payload);

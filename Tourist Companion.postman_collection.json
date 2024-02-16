@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tourguide_username\": \"AnasCompiler\",\r\n    \"emailTG\": \"AnasHesham@gmail.com\",\r\n    \"first_nameTG\": \"Anas\",\r\n    \"last_nameTG\": \"Hesham\",\r\n    \"nationalidTG\": \"1234567890123\",\r\n    \"birthdayTG\": \"2001-01-12\",\r\n    \"spoken_langTG\": \"nodejs\",\r\n    \"passwordTG\": \"121Annas\"\r\n}",
+							"raw": "{\r\n    \"tourguide_username\": \"Rawan\",\r\n    \"emailTG\": \"nrawana12345@gmail.com\",\r\n    \"first_nameTG\": \"Rawan\",\r\n    \"last_nameTG\": \"Mohamed\",\r\n    \"nationalidTG\": \"1234567890123\",\r\n    \"birthdayTG\": \"2001-04-21\",\r\n    \"spoken_langTG\": \"English, German\",\r\n    \"passwordTG\": \"214Rawan\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -42,7 +42,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"emailTG\": \"Anas@gmail.com\",\r\n    \"passwordTG\": \"121Annas\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -60,6 +60,70 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getProfileTG",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFuYXNAZ21haWwuY29tIiwicm9sZSI6InRvdXJndWlkZSIsImlhdCI6MTcwNzQyNjk1MH0.55a4AV7DF-YFsUsCJvoetGYKxeoB-3tYqWsK87J9p8I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ProfileTG",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ProfileTG"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadTG",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYXJtYWhtb3VkNDM1NkBnbWFpbC5jb20iLCJyb2xlIjoidG91cmd1aWRlIiwiaWF0IjoxNzA3NjEyNjY4fQ.7DyH_glYZ1wVRVh8erFhzxwIjqpCSF0P7zDnhMjskRs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1eec8777-2764-4100-9009-b5de575af269"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/uploadTG",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"uploadTG"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -73,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tour_username\": \"HB\",\r\n    \"emailT\": \"Habiba@gmail.com\",\r\n    \"first_nameT\": \"Habiba\",\r\n    \"last_nameT\": \"Bastawe\",\r\n    \"nationalityT\":\"Indian\",\r\n    \"birthdayT\": \"2001-07-01\",\r\n    \"passwordT\": \"017Habiba\"\r\n}",
+							"raw": "{\r\n    \"tour_username\": \"HusseinMostafa\",\r\n    \"emailT\": \"HusseinMostafa@gmail.com \",\r\n    \"first_nameT\": \"Hussein\",\r\n    \"last_nameT\": \"Mostafa\",\r\n    \"nationalityT\":\"British\",\r\n    \"birthdayT\": \"2000-02-11\",\r\n    \"passwordT\": \"112Hussein\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -99,7 +163,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"emailT\": \"Habiba@gmail.com\",\r\n    \"passwordT\": \"\"\r\n}",
+							"raw": "{\r\n    \"emailT\": \"Tokaabdelgawad60@gmail.com\",\r\n    \"passwordT\": \"215Tooka\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -113,6 +177,133 @@
 							],
 							"path": [
 								"signinT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfileT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhYmliYWJhc3Rhd2U2N0BnbWFpbC5jb20iLCJyb2xlIjoidG91cmlzdCIsImlhdCI6MTcwNzU4ODcxNn0.cbeOBY3Ob-zMPn9YGV1mChOeQIQ7yzpuUuQcpNy9Aw0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ProfileT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ProfileT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikh1c3NlaU1vc3RhZmFAZ21haWwuY29tIiwicm9sZSI6InRvdXJpc3QiLCJpYXQiOjE3MDc2MTY1NjZ9.FqMQo-mBlvmxk3ARx-LL34ovszFvIo6ANWum5bEuN2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1eec8801-9a97-4890-baca-c4154b613b71"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/uploadT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"uploadT"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "museums Info",
+			"item": [
+				{
+					"name": "All museums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/museums",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"museums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "One museum",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/museum/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"museum",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "ByUsername",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/byUsername/an",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"byUsername",
+								"an"
 							]
 						}
 					},
