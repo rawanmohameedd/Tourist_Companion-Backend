@@ -10,7 +10,7 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
     if (existingEmail) {
         return user.generateErrorMessage(400, "Email is already in use");
     }
-
+ 
     const existingUsername = await user.checkExistingUsername(tour_username);
     if (existingUsername) {
         return user.generateErrorMessage(400, "Username is already in use");
