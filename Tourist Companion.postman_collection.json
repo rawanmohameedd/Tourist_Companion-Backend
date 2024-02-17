@@ -326,6 +326,35 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Rate",
+			"item": [
+				{
+					"name": "Give a rate",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "show all tourguide rates",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Tourist visits",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
