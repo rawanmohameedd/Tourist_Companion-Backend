@@ -46,6 +46,7 @@ const signinTour = async ({ emailT, passwordT }) => {
         const isPasswordValid = await bcrypt.compare(passwordT, rows[0].passwordt);
 
         if (isPasswordValid) {
+            
             // Remove the password before returning the user
             delete rows[0].passwordT;
             return rows[0];

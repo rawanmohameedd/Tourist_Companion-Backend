@@ -35,7 +35,7 @@ create table museums (
 );
 
 create table rating_system(
-	tourguuide_rate_id serial primary key,
+	tourguide_rate_id serial primary key,
 	tourguide_username varchar(20)  references tourguide,
 	tour_username varchar(20) references tourists,
 	rate int,
