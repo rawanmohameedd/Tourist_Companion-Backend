@@ -74,11 +74,26 @@ const uploadPhoto = async (url, username) => {
     return false
 }
 
+const isAvaliable = async (tourguide_username)=>{
+    try {
+    const client = await pool.connect()
+    const { rows , rowCount} = await client.query('UPDATE tourguide SET isavailable = NOT tourguide.isavailable WHERE tourguide_username = $1 ',[tourguide_username])
+    client.release()
+    if (rowCount){
+        return rows[0]
+    }
+    return null
+    }
+    catch (error){
+        return {error: "can't update tourguide availablity"}
+    }
+}
 module.exports = {
     getByUsernameTG,
     getByEmailTG,
     createTourGuide,
     signinTourguide,
     getProfileTG,
-    uploadPhoto
+    uploadPhoto,
+    isAvaliable
 }

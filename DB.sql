@@ -44,3 +44,7 @@ create table rating_system(
 );
 
 alter table museums add column musuem_image varchar(255)
+
+alter table tourguide add column isavailable boolean default true;
+
+ALTER TABLE tourguide ADD COLUMN avgRating NUMERIC(10, 2);

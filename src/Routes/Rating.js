@@ -26,7 +26,6 @@ Router.get("/showAllRates/:tourguide_username", async(req,res)=>{
     try{
         const tourguide_username = req.params.tourguide_username
         const allRates = await rateServices.ShowAllRates(tourguide_username)
-
         console.log(allRates)
         if (allRates){
             return res.send(allRates)
@@ -41,6 +40,29 @@ Router.get("/showAllRates/:tourguide_username", async(req,res)=>{
         });
     }
 })
+
+Router.put("/updateAvgRate/:tourguide_username", async (req, res) => {
+    try {
+        const tourguide_username = req.params.tourguide_username;
+        const avgrating = req.body.avgrating
+        
+        const result = await rateServices.updateAvgRate(avgrating, tourguide_username);
+
+        if (result.value) {
+            console.log(result);
+            return res.send(result);
+        }
+        res.status(400).send({
+            message: result.error
+        });
+    } catch (error) {
+        console.error('Error updating average rate:', error);
+        res.status(500).send({
+            message: "Internal Server Error"
+        });
+    }
+});
+
 
 Router.get("/touristVisits/:tour_username", async (req,res)=>{
     try{

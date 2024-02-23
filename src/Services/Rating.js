@@ -28,6 +28,19 @@ async function ShowAllRates(tourguide_username){
     }
 }
 
+async function updateAvgRate(avgrating, tourguide_username) {
+    try {
+        const setAvgRate = await Rating.updateRate(avgrating, tourguide_username);
+        if (setAvgRate) {
+            return { value: setAvgRate };
+        }
+        return { error: "Failed to update tour guide rate" };
+    } catch (error) {
+        console.error('Error updating average rate:', error);
+        return { error: "An error occurred while updating tour guide rate" };
+    }
+}
+
 async function ShowTouristVisits(tour_username){
     try{
         const visits = await Rating.touristVisits(tour_username)
@@ -43,5 +56,6 @@ async function ShowTouristVisits(tour_username){
 module.exports={
     GivingArate,
     ShowAllRates,
-    ShowTouristVisits
+    ShowTouristVisits,
+    updateAvgRate,
 }

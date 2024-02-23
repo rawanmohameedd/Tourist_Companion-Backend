@@ -10,7 +10,7 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
     if (existingEmail) {
         return user.generateErrorMessage(400, "Email is already in use");
     }
- 
+
     const existingUsername = await user.checkExistingUsername(tour_username);
     if (existingUsername) {
         return user.generateErrorMessage(400, "Username is already in use");
@@ -19,7 +19,8 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
         return user.generateErrorMessage(400, "Invalid Email Format")
     }
     if (!user.validPassword(passwordT)) {
-        return user.generateErrorMessage(400, "Password must contain : at least 8 characters contain unique chaaracter contain uppercase letter")
+        return user.generateErrorMessage(400, `Password must contain : at least 8 characters 
+        contain unique character contain uppercase letter`)
     }
     const encryptedpassword = user.ecncryptPassword(passwordT)
 

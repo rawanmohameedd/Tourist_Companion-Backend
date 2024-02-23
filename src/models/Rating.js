@@ -28,6 +28,22 @@ const showRates = async (tourguide) => {
     return null
 }
 
+
+const updateRate = async (avgrating, tourguide_username) => {
+    try {
+        const client = await pool.connect();
+        const { rows, rowCount } = await client.query('UPDATE tourguide SET avgrating = $1 WHERE tourguide_username = $2', [avgrating, tourguide_username]);
+        client.release();
+        if (rowCount) {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error updating tour guide rate:', error);
+        throw error; 
+    }
+};
+
 const touristVisits = async(tour_username)=>{
     const client = await pool.connect()
     const {rows, rowCount} = await client.query(
@@ -43,5 +59,6 @@ const touristVisits = async(tour_username)=>{
 module.exports = {
     giveArate,
     showRates,
-    touristVisits
+    touristVisits,
+    updateRate
 }

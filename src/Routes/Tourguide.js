@@ -67,4 +67,14 @@ Router.put("/uploadTG", auth, upload.single('image'), async (req, res) => {
     });
 })
 
+Router.put("/updateAvailability/:tourguide_username", async (req,res)=>{
+    try{
+        const tourguide_username = req.params.tourguide_username
+        const updated = await tourguideServices.available(tourguide_username)
+        return res.send(updated)
+    }
+    catch (error){
+        return { error : "can't change available right now"}
+    }
+})
 module.exports = Router

@@ -63,8 +63,19 @@ async function uploadPhoto(url, username) {
 
 }
 
+async function available (tourguide_username){
+    try {
+    const isAvaliable = await Tourguide.isAvaliable(tourguide_username)
+
+    return { value: isAvaliable}
+    } catch (error){
+        return user.generateErrorMessage("400", "can't change availablity")
+    }
+}
+
 module.exports = {
     SignupTG,
     SigninTG,
-    uploadPhoto
+    uploadPhoto,
+    available
 }
