@@ -124,6 +124,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "isAvaliable",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -324,6 +332,14 @@
 						"header": []
 					},
 					"response": []
+				},
+				{
+					"name": "ByNationality",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -348,6 +364,14 @@
 				},
 				{
 					"name": "Tourist visits",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
 					"request": {
 						"method": "GET",
 						"header": []

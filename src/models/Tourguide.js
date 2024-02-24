@@ -77,12 +77,15 @@ const uploadPhoto = async (url, username) => {
 const isAvaliable = async (tourguide_username)=>{
     try {
     const client = await pool.connect()
-    const { rows , rowCount} = await client.query('UPDATE tourguide SET isavailable = NOT tourguide.isavailable WHERE tourguide_username = $1 ',[tourguide_username])
+    const { rows , rowCount} = await client.query('UPDATE tourguide SET isavailable = NOT tourguide.isavailable WHERE tourguide_username = $1 RETURNING *',[tourguide_username])
     client.release()
+    console.log(rows[0].isavaliable)
+    console.log(rowCount)
+
     if (rowCount){
         return rows[0]
     }
-    return null
+    return null;
     }
     catch (error){
         return {error: "can't update tourguide availablity"}

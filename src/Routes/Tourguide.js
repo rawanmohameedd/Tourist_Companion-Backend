@@ -71,6 +71,7 @@ Router.put("/updateAvailability/:tourguide_username", async (req,res)=>{
     try{
         const tourguide_username = req.params.tourguide_username
         const updated = await tourguideServices.available(tourguide_username)
+        console.log('routes',updated)
         return res.send(updated)
     }
     catch (error){

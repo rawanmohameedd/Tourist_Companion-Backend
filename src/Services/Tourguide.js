@@ -67,7 +67,11 @@ async function available (tourguide_username){
     try {
     const isAvaliable = await Tourguide.isAvaliable(tourguide_username)
 
-    return { value: isAvaliable}
+    console.log('services',isAvaliable)
+    if(isAvaliable !== null){
+        return { value: isAvaliable}
+    }
+    return { error: "availablity can't be changed"}
     } catch (error){
         return user.generateErrorMessage("400", "can't change availablity")
     }

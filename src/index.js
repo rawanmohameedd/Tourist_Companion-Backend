@@ -7,7 +7,7 @@ const app = express();
 const TourguideRouter = require('./Routes/Tourguide')
 const TouristRouter = require('./Routes/Tourist')
 const MuseumRouter = require('./Routes/MuseumInfo')
-const SearchRouter = require('./Routes/SearchByUsername');
+const SearchRouter = require('./Routes/Search');
 const FindGuideRouter = require('./Routes/FindAGuide')
 const RatingRouter = require('./Routes/Rating')
 
