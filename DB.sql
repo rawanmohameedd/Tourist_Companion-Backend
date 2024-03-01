@@ -56,3 +56,5 @@ CREATE TABLE tourists_requests (
     duration INT
 );
 
+alter table tourists_requests drop column duration
+alter table tourists_requests add column end_date date

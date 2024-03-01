@@ -19,8 +19,8 @@ const sendRequest = async (request) => {
             }
         } else if (!request.is_one_visit) {
             const { rows, rowCount } = await client.query(
-                `INSERT INTO "tourists_requests" (tour_username, tourguide_username, is_one_visit, start_date, duration) VALUES ($1, $2, $3, $4, $5) RETURNING tour_username, tourguide_username, is_one_visit, start_date, duration`, 
-                [request.tour_username, request.tourguide_username, request.is_one_visit, request.start_date, request.duration]
+                `INSERT INTO "tourists_requests" (tour_username, tourguide_username, is_one_visit, start_date, end_date) VALUES ($1, $2, $3, $4, $5) RETURNING tour_username, tourguide_username, is_one_visit, start_date, end_date`, 
+                [request.tour_username, request.tourguide_username, request.is_one_visit, request.start_date, request.end_date]
             );
             client.release();
             if (rowCount) {

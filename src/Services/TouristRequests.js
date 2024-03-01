@@ -8,7 +8,7 @@ async function sent(request) {
                 return utils.generateErrorMessage(400, "Visit date and place cannot be empty for one-time visit.");
             }
         } else {
-            if (!request.start_date || !request.duration) {
+            if (!request.start_date || !request.end_date) {
                 return utils.generateErrorMessage(400, "Start date and duration cannot be empty for multiple visits.");
             }
         }

@@ -5,19 +5,19 @@ const RequestServices = require("../Services/TouristRequests")
 
 Router.post("/sentRequest", async (req, res) => {
     try {
-        const { tour_username, tourguide_username, is_one_visit, visit_date, place, start_date, duration } = req.body;
+        const { tour_username, tourguide_username, is_one_visit, visit_date, place, start_date, end_date } = req.body;
 
         if (is_one_visit) {
             if (!visit_date || !place) {
                 return res.status(400).json({ error: "Visit date and place cannot be empty for one-time visit." });
             }
         } else {
-            if (!start_date || !duration) {
+            if (!start_date || !end_date) {
                 return res.status(400).json({ error: "Start date and duration cannot be empty for multiple visits." });
             }
         }
 
-        const request = is_one_visit ? { tour_username, tourguide_username,is_one_visit, visit_date, place } : { tour_username, tourguide_username,is_one_visit, start_date, duration };
+        const request = is_one_visit ? { tour_username, tourguide_username,is_one_visit, visit_date, place } : { tour_username, tourguide_username,is_one_visit, start_date, end_date };
 
         const Request = await RequestServices.sent(request);
 
