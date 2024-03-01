@@ -21,6 +21,8 @@ Create Table tourGuide(
 	passwordTG varchar(255),
     profile_photoTG varchar(255),
 	licenseTG varchar(255),
+    isavailable boolean default true,
+    avgRating NUMERIC(10, 2),
 	primary key(tourguide_username)
 );
 
@@ -31,7 +33,8 @@ create table museums (
 	ticket_adult varchar(10),
 	ticket_student varchar(10),
 	museinfo text,
-	map varchar(255)
+	map varchar(255),
+    musuem_image varchar(255)
 );
 
 create table rating_system(
@@ -43,8 +46,13 @@ create table rating_system(
 	date_of_the_visit date
 );
 
-alter table museums add column musuem_image varchar(255)
+CREATE TABLE tourists_requests (
+    tourguide_username VARCHAR(20) NOT NULL,
+    tour_username VARCHAR(20) NOT NULL,
+    is_one_visit BOOLEAN NOT NULL,
+    visit_date DATE,
+    place VARCHAR(255),
+    start_date DATE,
+    duration INT
+);
 
-alter table tourguide add column isavailable boolean default true;
-
-ALTER TABLE tourguide ADD COLUMN avgRating NUMERIC(10, 2);

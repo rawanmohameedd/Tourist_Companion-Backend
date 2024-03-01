@@ -10,6 +10,7 @@ const MuseumRouter = require('./Routes/MuseumInfo')
 const SearchRouter = require('./Routes/Search');
 const FindGuideRouter = require('./Routes/FindAGuide')
 const RatingRouter = require('./Routes/Rating')
+const RequestRouter = require("./Routes/TouristRequests")
 
 const { dirname } = require('path');
 const path = require('path');
@@ -26,6 +27,7 @@ app.use(MuseumRouter)
 app.use(SearchRouter)
 app.use(FindGuideRouter)
 app.use(RatingRouter)
+app.use(RequestRouter)
 
 app.listen(process.env.PORT, () => {
     console.log(`Tourist companion is Running on port: ${process.env.PORT}`)
