@@ -1,5 +1,4 @@
 const pool = require ('../postgres')
-const bcrypt = require("bcrypt")
 
 const login = async ({ id, password }) => {
     const client = await pool.connect()

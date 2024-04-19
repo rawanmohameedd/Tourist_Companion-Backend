@@ -14,7 +14,7 @@ async function loginServices({ id, password }) {
     const token = user.generateToken(id, "admin")
 
     return {
-        value: admin,
+        value: adminn,
         token,
     }
 }

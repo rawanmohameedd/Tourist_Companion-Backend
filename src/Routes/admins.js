@@ -1,7 +1,6 @@
 const express = require("express")
 const Router = new express.Router()
 const adminServices = require('../Services/admins')
-const auth = require("../middleware/auth")
 
 Router.post("/login", async (req, res) => {
     const payload = {
