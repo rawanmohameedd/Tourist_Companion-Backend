@@ -41,4 +41,23 @@ Router.get("/spoken_lang/:user", async(req,res)=>{
         })
     }
 })
+
+Router.get("/rating", async (req,res)=>{
+    try{
+        const result = await searchServices.sortByRating()
+        if (result.tourGuides.length){
+            console.log("Search result:", result);
+            return res.send(result);
+        }
+        return res.status(400).send({
+            message: "There are no matching users."
+        });
+    }catch(error){
+    console.error("Error fetching Search request:", error.message);
+    res.status(500).send({
+        message: "Internal Server Error"
+    })
+}
+})
+
 module.exports = Router

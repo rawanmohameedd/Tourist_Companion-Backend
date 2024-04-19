@@ -9,11 +9,12 @@ async function sent(request) {
             }
         } else {
             if (!request.start_date || !request.end_date) {
-                return utils.generateErrorMessage(400, "Start date and duration cannot be empty for multiple visits.");
+                return utils.generateErrorMessage(400, "Start and end date cannot be empty for multiple visits.");
             }
         }
         const Request = await requestModels.sendRequest(request); 
         if (Request) {
+            console.log(request)
             return Request;
         }
         return utils.generateErrorMessage(400, "Internal Models Error");
@@ -46,9 +47,34 @@ async function decline (tour_username){
         return { error: "can't decline this tourist"}
     }
 }
+
+async function Tourist(tourguide_username){
+        try{
+            console.log('services', tourguide_username)
+            const tourist= await requestModels.connectedTourist(tourguide_username)
+            console.log('hena services',tourist)
+            if (tourist)
+            return tourist
+        return {message : "This tourguide has no connected tourists yet"}
+        } catch(error){
+            return { error: "can't get which tourists this tour guide is connected to"}
+        }
+}
+
+async function Tourguide(tour_username){
+    try{
+        const tourguide= await requestModels.connectedTourguide(tour_username)
+        return tourguide
+    } catch(error){
+        console.error("Error getting tour guide:", error);
+        return { error: "Unable to retrieve connected tour guide" };     }
+}
+
 module.exports = {
     sent,
     show,
     // accept,
-    decline
+    decline,
+    Tourguide,
+    Tourist
 }

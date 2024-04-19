@@ -70,9 +70,44 @@ const declineRequest = async (tour_username)=>{
     }
 }
 
+const connectedTourist = async (tourguide_username)=>{
+    try {
+        const client = await pool.connect()
+        const {rows, rowCount}= await pool.query(
+            `SELECT tour_username FROM "tourists_requests" WHERE tourguide_username = $1`,[tourguide_username]
+        )
+        client.release()
+        if (rowCount){
+            return rows
+        }
+        return {error: "This tourguide has no connected tourists"}
+    } catch (error){
+        return {error : "internal several error"}
+    }
+}
+const connectedTourguide = async (tour_username)=>{
+    try {
+        const client = await pool.connect()
+        const {rows, rowCount}= await pool.query(
+            `SELECT tourguide_username FROM "tourists_requests" WHERE tour_username = $1`,[tour_username]
+        )
+        client.release()
+        if (rowCount){
+            console.log('hena models',rows[0])
+            return rows[0]
+        }
+        return {error: "This tourist has connected with any tourguide"}
+    } catch (error){
+        console.error("Error retrieving connected tour guide:", error);
+        return {error : "internal several error"}
+    }
+}
+
 module.exports ={
     sendRequest,
     showAllRequests,
     // acceptRequest,
-    declineRequest
+    declineRequest,
+    connectedTourguide,
+    connectedTourist
 }

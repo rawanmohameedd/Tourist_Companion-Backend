@@ -1,8 +1,8 @@
 Create Table tourists(
 	tour_username varchar(20),
- 	emailT varchar(255),
-  	first_nameT varchar(20),
-  	last_nameT varchar(20),
+	emailT varchar(255),
+	first_nameT varchar(20),
+	last_nameT varchar(20),
 	nationalityT varchar(20),
 	brithdayT date,
 	passwordT varchar(255),
@@ -12,9 +12,9 @@ Create Table tourists(
 
 Create Table tourGuide(
 	tourguide_username varchar(20),
- 	emailTG varchar(32),
-  	first_nameTG varchar(20),
-  	last_nameTG varchar(20),
+	emailTG varchar(32),
+	first_nameTG varchar(20),
+	last_nameTG varchar(20),
 	nationalidTG varchar(14),
 	brithdayTG date,
 	spoken_langTG text,
@@ -53,8 +53,10 @@ CREATE TABLE tourists_requests (
     visit_date DATE,
     place VARCHAR(255),
     start_date DATE,
-    duration INT
+	end_date date
 );
 
-alter table tourists_requests drop column duration
-alter table tourists_requests add column end_date date
+create table admins (
+	id int ,
+	password varchar (255)
+)

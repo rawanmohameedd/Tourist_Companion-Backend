@@ -64,4 +64,36 @@ Router.delete("/declinedRequest/:tour_username", async (req, res) => {
     }
 });
 
+Router.get('/getTourists/:tourguide', async(req,res)=>{
+    try{
+        const tourguide_username = req.params.tourguide
+        console.log('routes', tourguide_username)
+        const tourists = await RequestServices.Tourist(tourguide_username)
+        if (tourists) {
+            return  res.status(200).json({ value: tourists });
+        }
+        return {message: "NO Connected tourists yet"}
+    } catch(error){
+        console.error("error handling this request", error)
+        return res.status(500).json({error: "internal server error"})
+    }
+})
+
+Router.get("/getTourguide/:tourist", async(req,res)=>{
+    try{
+    const tour_username = await req.params.tourist
+    console.log(tour_username)
+    const connectedTourguide = await RequestServices.Tourguide(tour_username)
+    console.log('first', connectedTourguide)
+    if (connectedTourguide) {
+        return  res.status(200).json({ value: connectedTourguide });
+
+    } 
+        return res.status(404).json({ error: "No tourguide is being vonnect to this tourist." })
+    } catch (error){
+        console.error("Error handling request:", error.message);
+        return res.status(500).json({ error: "Internal server error occurred." });
+    }
+})
+
 module.exports = Router

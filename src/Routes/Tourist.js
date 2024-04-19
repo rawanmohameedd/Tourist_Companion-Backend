@@ -4,7 +4,7 @@ const touristServices = require('../Services/Tourist')
 const auth = require("../middleware/auth")
 const upload = require("../Utils/multerSetup")
 // const FacebookStrategy = require('passport-facebook').Strategy
-const Tourist = require('../models/Tourist')
+const Tourist = require('../Models/Tourist')
 const { generateErrorMessage } = require("../Utils/User")
 const axios = require('axios');
 

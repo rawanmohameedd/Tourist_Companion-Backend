@@ -37,7 +37,26 @@ async function searchBySpokenlang(spoken_lang){
         return { error : "Failed to find user"}
     }
 }
+
+async function sortByRating (){
+    try {
+        const rate = await User.getByAvgrate()
+        const result = {
+            tourGuides: rate 
+        };
+
+        if(result){
+            console.log("Results:", result);
+            return result;
+        }
+        
+        return { error: "there is no tourguides"}
+    }catch (error){
+        return { error: "failed to sort rating"}
+    }
+}
 module.exports={
     searchByUsername,
     searchBySpokenlang,
+    sortByRating
 }

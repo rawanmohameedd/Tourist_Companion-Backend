@@ -19,7 +19,22 @@ const getBySpokenLang = async (spoken_lang) =>{
     client.release();
     return rows;
 }
+
+const getByAvgrate = async()=>{
+    const client =await pool.connect()
+    const {rows,rowCount}= await client.query(`
+    SELECT tourguide_username, emailtg, first_nametg, last_nametg, nationalidtg, brithdaytg, spoken_langtg, profile_phototg, avgrating, isavailable
+    FROM "tourguide"
+    ORDER BY avgrating DESC;
+    `)
+    if (rowCount){
+        return rows
+    }
+    return {message : "There is no avaliable tourguides"}
+}
+
 module.exports={
     getByUsername,
     getBySpokenLang,
+    getByAvgrate
 }

@@ -24,7 +24,7 @@ function validPassword(password) {
 }
 
 function validEmail(emailAdress) {
-  let regex = /^[\w._-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z]{2,3})+$/;
+let regex = /^[\w._-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z]{2,3})+$/;
 
   if (emailAdress.match(regex))
     return true;
