@@ -58,5 +58,6 @@ CREATE TABLE tourists_requests (
 
 create table admins (
 	id int ,
-	password varchar (255)
+	password varchar (255),
+	name varchar (25)
 )

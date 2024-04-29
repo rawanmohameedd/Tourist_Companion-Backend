@@ -1,4 +1,4 @@
-const admin = require("../Models/admins")
+const admin = require("../Models/Admins")
 const user = require ("../Utils/User")
 
 async function loginServices({ id, password }) {

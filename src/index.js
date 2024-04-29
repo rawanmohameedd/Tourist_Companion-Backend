@@ -12,6 +12,7 @@ const FindGuideRouter = require('./Routes/FindAGuide')
 const RatingRouter = require('./Routes/Rating')
 const RequestRouter = require("./Routes/TouristRequests")
 const AdminsRouter = require ("./Routes/admins")
+const ModelRouter = require("./Routes/ConnectWithFlask")
 
 const { dirname } = require('path');
 const path = require('path');
@@ -30,6 +31,7 @@ app.use(FindGuideRouter)
 app.use(RatingRouter)
 app.use(RequestRouter)
 app.use(AdminsRouter)
+app.use(ModelRouter)
 
 app.listen(process.env.PORT, () => {
     console.log(`Tourist companion is Running on port: ${process.env.PORT}`)
