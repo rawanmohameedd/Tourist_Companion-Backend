@@ -61,3 +61,20 @@ create table admins (
 	password varchar (255),
 	name varchar (25)
 )
+
+alter table museums add column status boolean default false
+
+create table museum_rooms(
+	room_number serial primary key,
+	room_name varchar(25),
+	avg_capcity int,
+	full_capacity int,
+	musid int references museums
+);
+
+CREATE TABLE Indoor_management (
+    username VARCHAR(20),
+    role VARCHAR(20),
+    musid INT REFERENCES museums,
+    location INT REFERENCES museum_rooms(room_number)
+);
