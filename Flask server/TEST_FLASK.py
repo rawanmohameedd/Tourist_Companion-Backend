@@ -5,7 +5,6 @@ Created on Sat Apr 20 15:36:27 2024
 @author: Dell
 """
 
-
 from flask import Flask, request, jsonify
 import numpy as np
 import pickle
@@ -29,6 +28,11 @@ def predict():
         return jsonify({'error': 'Invalid or empty data received.'}), 400
 
     int_features = [int(x) for x in readings.values()]
+
+    # Check if all values are -100
+    if all(value == -100 for value in int_features):
+        return jsonify({'prediction_text': "You are out of the museum"}), 200
+
     final_features = [np.array(int_features)]
     roomNum_predict = loaded_big_model.predict(final_features)
 
@@ -46,7 +50,6 @@ def predict():
     elif roomNum_predict == 3:
         IN_OUT_predict = loaded_model_3.predict(final_features)
         return jsonify({'prediction_text': "Predicted room {}, Predicted IN/OUT {}".format(roomNum_predict, IN_OUT_predict)})
-
 
 if __name__ == '__main__':
     app.run(debug=True)

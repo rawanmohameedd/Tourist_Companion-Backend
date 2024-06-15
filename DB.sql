@@ -78,3 +78,8 @@ CREATE TABLE Indoor_management (
     musid INT REFERENCES museums,
     location INT REFERENCES museum_rooms(room_number)
 );
+
+Create table Bssid (
+	museum_name varchar (255),
+	bssid varchar(17)
+)
