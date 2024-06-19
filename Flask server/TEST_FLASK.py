@@ -31,25 +31,29 @@ def predict():
 
     # Check if all values are -100
     if all(value == -100 for value in int_features):
-        return jsonify({'prediction_text': "You are out of the museum"}), 200
+        return jsonify({"message": "You are out of the museum"}), 200
+
+    # Check if there is only one reading
+    if len(int_features) == 1:
+        return jsonify({"message": "You are in the pyramids"}), 200
 
     final_features = [np.array(int_features)]
     roomNum_predict = loaded_big_model.predict(final_features)
 
     if roomNum_predict == 0:
-        return jsonify({'prediction_text': "Predicted room {}".format(roomNum_predict)})
+        return jsonify({"roomNum": int(roomNum_predict)})
 
     elif roomNum_predict == 1:
         IN_OUT_predict = loaded_model_1.predict(final_features)
-        return jsonify({'prediction_text': "Predicted room {}, Predicted IN/OUT {}".format(roomNum_predict, IN_OUT_predict)})
+        return jsonify({"roomNum": int(roomNum_predict), "IN_OUT": int(IN_OUT_predict)})
 
     elif roomNum_predict == 2:
         IN_OUT_predict = loaded_model_2.predict(final_features)
-        return jsonify({'prediction_text': "Predicted room {}, Predicted IN/OUT {}".format(roomNum_predict, IN_OUT_predict)})
+        return jsonify({"roomNum": int(roomNum_predict), "IN_OUT": int(IN_OUT_predict)})
 
     elif roomNum_predict == 3:
         IN_OUT_predict = loaded_model_3.predict(final_features)
-        return jsonify({'prediction_text': "Predicted room {}, Predicted IN/OUT {}".format(roomNum_predict, IN_OUT_predict)})
+        return jsonify({"roomNum": int(roomNum_predict), "IN_OUT": int(IN_OUT_predict)})
 
 if __name__ == '__main__':
     app.run(debug=True)

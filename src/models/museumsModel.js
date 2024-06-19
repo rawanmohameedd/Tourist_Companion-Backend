@@ -36,6 +36,8 @@ const addRooms  = async ({musid, room_name, avg_capcity, full_capcity}) =>{
     }
     return false
 }
+
+
 module.exports={
     viewStatus, 
     updateStatus,

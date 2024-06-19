@@ -14,6 +14,7 @@ const RequestRouter = require("./Routes/TouristRequests")
 const AdminsRouter = require ("./Routes/admins")
 const ModelRouter = require("./Routes/ConnectWithFlask")
 const MuseumModelRouter = require ("./Routes/museumsModel")
+const IndoorRouter = require('./Routes/indoorMangment')
 
 const { dirname } = require('path');
 const path = require('path');
@@ -34,6 +35,7 @@ app.use(RequestRouter)
 app.use(AdminsRouter)
 app.use(ModelRouter)
 app.use(MuseumModelRouter)
+app.use(IndoorRouter)
 
 app.listen(process.env.PORT, () => {
     console.log(`Tourist companion is Running on port: ${process.env.PORT}`)
