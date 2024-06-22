@@ -21,7 +21,8 @@ Router.post("/newUser", async (req,res)=>{
 Router.put("/updateUser", async (req,res)=>{
     const payload = {
         username : req.body.username,
-        location: req.body.location
+        museum_name : req.body.museum_name,
+        location: req.body.location,
     }
     console.log('routes', payload)
     const updating = await indoorServices.update(payload)

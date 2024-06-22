@@ -2,11 +2,19 @@ const indoorModels = require('../Models/indoorMangment')
 
 async function add ({username , role, museum_name,location}){
     try{
-        const newuser = indoorModels.adduser({username , role, museum_name,location})
+        const exist = await indoorModels.getbyUsername(username)
+        if (exist){
+            const updateUser = await indoorModels.updateuser({username,museum_name,location})
+            if (updateUser)
+                return updateUser
+        } else{
+            const newuser = await indoorModels.adduser({username , role, museum_name,location})
         
-        if(newuser){
-            return newuser
+            if(newuser){
+                return newuser
+            }
         }
+        
         return {error : 'Check what is wrong in services add user'}
 
     } catch (error){
@@ -15,9 +23,9 @@ async function add ({username , role, museum_name,location}){
     }
 }
 
-async function update ({username , location}){
+async function update ({username , museum_name, location}){
     try{
-        const updateduser = indoorModels.updateuser({username, location})
+        const updateduser = indoorModels.updateuser({username, museum_name, location})
 
         if (updateduser){
             return updateduser
