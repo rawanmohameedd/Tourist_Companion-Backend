@@ -9,6 +9,7 @@ const museumServices = require("../Services/MuseumInfo")
 Router.get ("/museums", async (req,res)=>{
     try{
         const all = await museumServices.allMuseums()
+        console.log(all)
         if(all.value){
             return res.send(all.value)
         }

@@ -1,8 +1,10 @@
 const express = require("express")
 const Router = new express.Router()
+const jwt = require('jsonwebtoken')
 const touristServices = require('../Services/Tourist')
 const auth = require("../middleware/auth")
 const upload = require("../Utils/multerSetup")
+
 // const FacebookStrategy = require('passport-facebook').Strategy
 const Tourist = require('../Models/Tourist')
 const { generateErrorMessage } = require("../Utils/User")
@@ -152,11 +154,11 @@ Router.get("/ProfileT", auth, async (req, res) => {
 });
 
 Router.put("/uploadT", auth, upload.single('image'), async (req, res) => {
+    console.log(req.user.tour_username)
     try {
         if (!req.file) {
-            return res.status(400).json({ error: "No file uploaded" });
+            return res.status(100).json({ error: "No file uploaded" });
         }
-
         const url = req.file.path;
         const result = await touristServices.uploadPhoto(url, req.user.tour_username);
 

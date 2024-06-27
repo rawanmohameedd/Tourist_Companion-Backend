@@ -51,9 +51,25 @@ async function deletation (username){
 }
 
 //website services 
+async function view (museum_name){
+    try{
+        
+    }catch(error){
+        return {error : 'Failed to view museum users right now'}
+    }
+} 
 
+async function filter ({museum_name, location}){
+    try{
+
+    }catch(error){
+        return {error : 'Failed to see this room users right now'}
+    }
+}
 module.exports = {
     add ,
     update,
-    deletation
+    deletation,
+    view,
+    filter
 }

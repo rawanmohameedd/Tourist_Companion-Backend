@@ -65,8 +65,10 @@ const getProfileTG = async (username) => {
 }
 
 const uploadPhoto = async (url, username) => {
+    const cleanedUrl = url.startsWith('src\\') ? url.substring(4) : url
+        console.log(url)
     const client = await pool.connect()
-    const { rows, rowCount } = await client.query('UPDATE tourguide SET profile_photoTG=$1 where tourguide_username = $2', [url, username])
+    const { rows, rowCount } = await client.query('UPDATE tourguide SET profile_photoTG=$1 where tourguide_username = $2', [cleanedUrl, username])
     client.release()
     if (rowCount) {
         return true

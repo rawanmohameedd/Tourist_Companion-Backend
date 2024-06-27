@@ -44,10 +44,8 @@ function ecncryptPassword(password) {
 }
 
 function generateToken(email, role) {
-  const token = jwt.sign({
-    email,
-    role,
-  }, process.env.SECRET
+  console.log('email in generate token', email , role)
+  const token = jwt.sign({ email: email, role: role }, process.env.SECRET
   )
   return token
 }

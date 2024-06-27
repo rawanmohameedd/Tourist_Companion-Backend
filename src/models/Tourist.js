@@ -70,8 +70,10 @@ const getProfileT = async (username) => {
 
 const uploadPhoto = async (url, username) => {
     try {
+        const cleanedUrl = url.startsWith('src\\') ? url.substring(4) : url
+        console.log(url)
         const client = await pool.connect();
-        const { rows, rowCount } = await client.query('UPDATE tourists SET profile_photoT=$1 WHERE tour_username=$2', [url, username]);
+        const { rows, rowCount } = await client.query('UPDATE tourists SET profile_photoT=$1 WHERE tour_username=$2', [cleanedUrl, username]);
         client.release();
         if (rowCount) {
             return { success: true };

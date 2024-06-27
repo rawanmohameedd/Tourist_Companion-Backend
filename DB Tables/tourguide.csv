@@ -1,12 +1,7 @@
-"musid","museum_name","ticket_tourist","ticket_adult","ticket_student","museinfo","map","musuem_image"
-5,"Grand Egyption museum","300$","150LE","50LE","The grand Egyptian museum is now open for visitors, it contains hundreds of monuments and rooms, it opens at 9 am and closes at 5 pm ","DbImages\gemmap.png","DbImages\grand-egyprion-museum.jpg"
-6,"National museum of egyptian civilization","700LE","120LE","60LE","Open daily from 9:00 am to 5:00 pm. Last ticket admission at 4:00pm. 
-On Fridays Museum opens for night session from 6:00pm to 9:00 pm. Last ticket admission at 8:00pm. ",".DbImages/National-museum-map.png","DbImages\National-musuem-og-civilization.jpg"
-1,"Coptic museum","40LE","2LE","1LE","9 am – 5 pm
-Ticket office closes at 4 pm
-Ramadan
-9 am – 3 pm
-Please note that photography is not permitted unless you have written approval from the Supreme Council of Antquities.","DbImages/Coptic-musuem-map.jpg","DbImages\Coptic-museum.jpg"
-2,"Nubian museum","0LE","0LE","0LE","Established in association with UNESCO to preserve the ancient Nubian culture, which was devastated when the Nile was dammed in 1970, the Nubia Museum is one of Aswan’s most fascinating and least-visited attractions. Exhibits run from 6,500 years ago to the present day, from the Kingdom of Kush to contemporary folk culture.","DbImages/Nubian-musuem-map.png","DbImages\Nubia-museum.jpg"
-3,"Egyption museum","600LE","40LE","15LE","Open daily from 9:00 am to 7:00 pm. Last ticket admission at 6:00pm. ","DbImages/Egyption-museum-map.jpg","DbImages\Egyption-museums.jpg"
-4,"Pyramids","720LE","80LE","40LE","Open daily from 7:00 am to 4:00 pm.",NULL,"DbImages\Pyramids.jpg"
+"tourguide_username","emailtg","first_nametg","last_nametg","nationalidtg","brithdaytg","spoken_langtg","passwordtg","profile_phototg","licensetg","avgrating","isavailable"
+"anashesham000","anashesham000@gmail.com","Anas","Hesham","1234567890123","2001-01-12","English, Italian, Hindi","$2b$10$Xo1qfB7CaDTa8f0TrvFHR.TBYixiagUWtpYpeSHbPWpO2jmqFHjpa","uploads/301795294_10211025788677818_5465640062104272873_n.jpg",NULL,"3.31",True
+"fathygamal","f.gamal.f6@gmail.com","Fathy","Gamal","1234567890123","2002-01-01","Spanish, Greek, Turkish","$2b$10$phUzgml6ut/CF.CgrL9NDuxFI/Z1UyhpoLQE62XPCDfnrQyducjES","uploads/1fe23ac3.jpg",NULL,"2.33",False
+"mohabgamil","mohabgamilhu@gmail.com","Mohab","Gamil","1234567890123","2001-02-12","Italian, Spanish ","$2b$10$Slv1AKlL27gRiVaoOYgd8u79SpTkpbarmGQDPqynA3sWK9ga6MR2u","uploads/1631576084556.jpg",NULL,"0.00",True
+"omarabdelghany","omarmahmoud4356@gmail.com","Omar ","Mahmoud ","1234567890123","2001-10-06","English, French, Turkish ","$2b$10$qH8rpmZjTNMDftOepR2xtuZsv0NanIXv2qQMIT2c4aJ1LN03N56fy","uploads\image-1709431745134-468978547.jpg",NULL,"3.00",False
+"rawanmohameedd","nrawana12345@gmail.com","Rawan","Mohamed","1234567890123","2001-04-21","English, German, Greek","$2b$10$9heCoJiS3WV7DRb90oELbexTij1pFkoXHKvFf3PWko1f5ZcPd55F6","uploads/1631576084563.jpg",NULL,"2.75",True
+"test","signuptest@gmail.com","Testf","Testt","1234567890123","2024-06-02","Arabic ","$2b$10$eAS5/eMk69j7firJPXlQeu9ZGtvEglDJmAiSvtnmLWbzVaR6OaQdq",NULL,NULL,"0.00",True

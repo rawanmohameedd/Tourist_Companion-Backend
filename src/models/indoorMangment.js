@@ -73,7 +73,7 @@ const viewmuseumUsers = async (museum_name) =>{
     client.release()
 
     if(rowCount){
-        return rows
+        return {rows, rowCount}
     }
 
     return {message : "There is no one in this museum"}
@@ -88,7 +88,7 @@ const filterUsersbyrooms = async (museum_name,location) =>{
     client.release()
 
     if(rowCount){
-        return rows
+        return {rows, rowCount}
     }
     return {message:"There is no one in this room"}
 
