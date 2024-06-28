@@ -13,7 +13,7 @@ const RatingRouter = require('./Routes/Rating')
 const RequestRouter = require("./Routes/TouristRequests")
 const AdminsRouter = require ("./Routes/admins")
 const ModelRouter = require("./Routes/ConnectWithFlask")
-const MuseumModelRouter = require ("./Routes/museumsModel")
+const MuseumModelRouter = require ("./Routes/museumsModelWebsite")
 const IndoorRouter = require('./Routes/indoorMangment')
 
 const { dirname } = require('path');

@@ -1,7 +1,7 @@
 const express = require ("express")
 const Router = new express.Router()
 
-const museumModelServices = require("../Services/museumsModel")
+const museumModelServices = require("../Services/museumsModelWebsite")
 
 Router.put("/changeStatus/:musid", async (req,res)=>{
     try{
@@ -34,6 +34,15 @@ Router.post("/addRooms",async(req,res)=>{
     } catch (error){
         return { error: "Internal Routes Error"}
     }
+})
+
+Router.get("/selectMuseum", async(req,res)=>{
+    const museum_name = req.body.museum_name
+    console.log(museum_name)
+    const museumUsers = await indoorServices.view(museum_name)
+    if(museumUsers)
+        return res.send(museumUsers)
+    return res.status(400).send({message : 'Cant view this museum useres'})
 })
 
 module.exports= Router

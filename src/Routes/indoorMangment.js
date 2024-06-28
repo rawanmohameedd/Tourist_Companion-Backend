@@ -43,5 +43,18 @@ Router.delete("/deleteUser/:username", async(req,res)=>{
     return res.status(400).send({message : 'Cant delete this user'})
 })
 
-//Website Routes
+Router.get ("/crowded", async (req,res)=>{
+    try{
+        const payload = {
+            museum_name : req.body.museum_name,
+            location: req.body.location
+        }
+        console.log('body',payload)
+        const usernumber = await indoorServices.crowd(payload)
+            return res.send(usernumber.toString())
+    } catch (error){
+        return {error: "Something went wrong"}
+    }
+})
+
 module.exports = Router

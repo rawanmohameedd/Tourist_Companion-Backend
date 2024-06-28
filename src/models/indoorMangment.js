@@ -63,35 +63,20 @@ const getbyUsername = async(username) =>{
         return null
     }
 }
-// Website models
-const viewmuseumUsers = async (museum_name) =>{
-    const client = await pool.connect()
-    const {rows , rowCount} = await client.query(
-        `SELECT * FROM Indoor_management WHERE museum_name = $1` ,[museum_name]
-    )
 
-    client.release()
-
-    if(rowCount){
-        return {rows, rowCount}
+const crowdRooms = async({museum_name, location})=>{
+    try{
+        const client = await pool.connect()
+        const { rowCount} = await client.query(
+            `SELECT * FROM Indoor_management WHERE museum_name = $1 AND location = $2`,
+            [museum_name,location]
+        )
+        client.release()
+        console.log(rowCount)
+        return rowCount
+    } catch (error){
+        return null
     }
-
-    return {message : "There is no one in this museum"}
-}
-
-const filterUsersbyrooms = async (museum_name,location) =>{
-    const client = await pool.connect()
-    const { rows, rowCount } = await client.query(
-        `SELECT * FROM Indoor_management WHERE museum_name = $1 AND location = $2`,
-        [museum_name, location]
-    );
-    client.release()
-
-    if(rowCount){
-        return {rows, rowCount}
-    }
-    return {message:"There is no one in this room"}
-
 }
 
 module.exports={
@@ -99,6 +84,5 @@ module.exports={
     updateuser,
     deleteuser,
     getbyUsername,
-    viewmuseumUsers,
-    filterUsersbyrooms
+    crowdRooms
 }

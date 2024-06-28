@@ -1,4 +1,4 @@
-const MuseumModel = require("../Models/museumsModel")
+const MuseumModel = require("../Models/museumsModelWebsite")
 
 async function update (musid){
     try{
@@ -29,7 +29,32 @@ async function addRooms ({room_name , avg_capcity, full_capcity, musid}){
         return {error : "Failed to insert rooms to this museum"}
     }
 }
+
+async function view (museum_name){
+    try{
+        const selectedMuseum = MuseumModel.viewmuseumUsers(museum_name)
+        if (selectedMuseum)
+            return selectedMuseum
+        return 'There is no people in this museum'
+    }catch(error){
+        return {error : 'Failed to view museum users right now'}
+    }
+} 
+
+async function filter ({museum_name, location}){
+    try{
+        const filteredRoom = MuseumModel.filterUsersbyrooms(museum_name, location)
+        if(filteredRoom)
+            return filteredRoom
+        return 'There is no people in this room'
+    }catch(error){
+        return {error : 'Failed to see this room users right now'}
+    }
+}
+
 module.exports={
     update, 
-    addRooms
+    addRooms,
+    view,
+    filter
 }

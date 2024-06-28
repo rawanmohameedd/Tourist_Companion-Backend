@@ -50,26 +50,19 @@ async function deletation (username){
     }
 }
 
-//website services 
-async function view (museum_name){
+async function crowd ({museum_name,location}){
     try{
+        const users = await indoorModels.crowdRooms({museum_name,location})
         
-    }catch(error){
-        return {error : 'Failed to view museum users right now'}
-    }
-} 
-
-async function filter ({museum_name, location}){
-    try{
-
-    }catch(error){
-        return {error : 'Failed to see this room users right now'}
+            return users
+        
+    } catch (error){
+        return {error : "Couldn't see users in this room"}
     }
 }
 module.exports = {
     add ,
     update,
     deletation,
-    view,
-    filter
+    crowd
 }
