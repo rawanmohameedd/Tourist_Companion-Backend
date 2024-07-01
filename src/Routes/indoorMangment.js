@@ -70,16 +70,15 @@ Router.get ("/currentCapacity/:museum_name", async (req,res)=>{
     }
 })
 
-Router.get("/crowdColors/:museum_name/:location", async (req, res) => {
+Router.get("/crowdColors/:museum_name", async (req, res) => {
     try {
         console.log('Received request:', req.params);
         const payload = {
             museum_name: req.params.museum_name,
-            location: req.params.location
         };
         console.log('Payload:', payload);
         const usernumber = await indoorServices.crowdColors(payload);
-        return res.status(200).send(usernumber.toString());
+        return res.status(200).send(usernumber);
     } catch (error){
         return {error: "Something went wrong"}
     }

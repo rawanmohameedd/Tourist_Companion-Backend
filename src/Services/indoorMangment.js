@@ -104,34 +104,60 @@ async function crowd({ museum_name }) {
 
 
 // comapre current capacity with avg and full capacity
-async function crowdColors ({museum_name}){
+async function crowdColors({ museum_name }) {
     try {
-        const current = await indoorModels.crowdRooms({museum_name});
-        const capacities = await indoorModels.getCapacities({museum_name});
-        
+        const current = await indoorModels.crowdRooms({ museum_name });
+        const capacities = await indoorModels.getCapacities({ museum_name });
+
         if (!capacities || capacities.length === 0) {
             return { error: "No capacities found" };
         }
 
-        const avg = capacities[0].avg_capacity;
-        const full = capacities[0].full_capacity;
-        console.log('Capacities', current, avg, full);
+        const roomCapacities = capacities.reduce((acc, capacity) => {
+            const room_name = capacity.room_name;
+            const avg = capacity.avg_capacity;
+            const full = capacity.full_capacity;
 
-        if (current < avg) {
-            return 1;
-        }
-        if (current > avg && current < full) {
-            return 2;
-        }
-        if (current > full) {
-            return 3;
-        }
-        return null;
+            // Parse capacity location JSON
+            const capacityLocation = JSON.parse(capacity.location);
+
+            // Find the current capacity for this room
+            const currentRoom = current.find(room => {
+                try {
+                    const currentLocation = JSON.parse(room.location);
+                    return JSON.stringify(currentLocation) === JSON.stringify(capacityLocation);
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                    return false;
+                }
+            });
+
+            if (currentRoom) {
+                const currentCapacity = parseInt(currentRoom.rowcount, 10);
+
+                if (currentCapacity < avg) {
+                    acc[room_name] = 1;
+                } else if (currentCapacity >= avg && currentCapacity < full) {
+                    acc[room_name] = 2;
+                } else if (currentCapacity >= full) {
+                    acc[room_name] = 3;
+                }
+            } else {
+                console.warn(`No current capacity found for room: ${room_name}`);
+            }
+
+            return acc;
+        }, {});
+
+        console.log(roomCapacities);
+        return roomCapacities;
     } catch (error) {
         console.error('Error in crowdColors:', error);
-        return { error: "couldn't compare between current and avg/full capacity" };
+        return { error: "Couldn't compare between current and avg/full capacity" };
     }
 }
+
+
 
 module.exports = {
     add ,
