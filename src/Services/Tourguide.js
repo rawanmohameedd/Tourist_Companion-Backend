@@ -63,6 +63,15 @@ async function uploadPhoto(url, username) {
 
 }
 
+async function deletePhoto(username) {
+    const tourguide = await Tourguide.deletePhoto(username)
+    if (!tourguide) {
+        return user.generateErrorMessage("400", "tourguide not exist")
+    }
+    return { value: tourguide }
+
+}
+
 async function available (tourguide_username){
     try {
     const isAvaliable = await Tourguide.isAvaliable(tourguide_username)
@@ -81,5 +90,6 @@ module.exports = {
     SignupTG,
     SigninTG,
     uploadPhoto,
+    deletePhoto,
     available
 }

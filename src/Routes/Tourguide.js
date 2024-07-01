@@ -67,6 +67,26 @@ Router.put("/uploadTG", auth, upload.single('image'), async (req, res) => {
     });
 })
 
+Router.put("/deletePhotoTG", async(req,res)=>{
+    const  username  = req.body.tourguide_username;
+    console.log('username',username)
+    if (!username) {
+        console.log(1)
+        return res.status(400).json({ error: 'Username is empty' });
+    }
+    try {
+        const deleted = await tourguideServices.deletePhoto(username);
+        if (deleted) {
+            res.status(200).json({ message: 'Photo deleted successfully' });
+        } else {
+            res.status(404).json({ error: 'Username not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting photo:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 Router.put("/updateAvailability/:tourguide_username", async (req,res)=>{
     try{
         const tourguide_username = req.params.tourguide_username

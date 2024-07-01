@@ -67,9 +67,10 @@ alter table museums add column status boolean default false
 create table museum_rooms(
 	room_number serial primary key,
 	room_name varchar(25),
-	avg_capcity int,
-	full_capacity int,
-	musid int references museums
+	location text,
+	musuem_name varchar(50),
+	avg_capacity int,
+	full_capacity int
 );
 
 CREATE TABLE Indoor_management (

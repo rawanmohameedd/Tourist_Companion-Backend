@@ -76,6 +76,16 @@ const uploadPhoto = async (url, username) => {
     return false
 }
 
+const deletePhoto = async ( username) => {
+    const client = await pool.connect()
+    const { rows, rowCount } = await client.query('UPDATE tourguide SET profile_photoTG=NULLwhere tourguide_username = $1', [username])
+    client.release()
+    if (rowCount) {
+        return true
+    }
+    return false
+}
+
 const isAvaliable = async (tourguide_username)=>{
     try {
     const client = await pool.connect()
@@ -100,5 +110,6 @@ module.exports = {
     signinTourguide,
     getProfileTG,
     uploadPhoto,
+    deletePhoto,
     isAvaliable
 }

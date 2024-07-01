@@ -49,7 +49,7 @@ const deleteuser = async (username ) => {
 
 const getbyUsername = async(username) =>{
     const client = await pool.connect()
-    const { rows, rowCount } = await client.query(
+    const {rowCount } = await client.query(
         'select * from Indoor_management WHERE username = $1',
         [username]
     )
@@ -64,25 +64,66 @@ const getbyUsername = async(username) =>{
     }
 }
 
-const crowdRooms = async({museum_name, location})=>{
+const crowdRooms = async({ museum_name }) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query(
+            `SELECT location, COUNT(*) as rowCount
+            FROM Indoor_management 
+            WHERE museum_name = $1 
+            GROUP BY location`,
+            [museum_name]
+        );
+        client.release();
+        console.log('result:', result.rows);
+        return result.rows;
+    } catch (error) {
+        console.error('Error in crowdRooms:', error);
+        return { error: "Can't reach rooms users" };
+    }
+};
+
+
+const getCapacities = async ({museum_name}) =>{
+    try {
+        const client = await pool.connect();
+        const { rows, rowCount } = await client.query(
+            `SELECT * FROM museum_rooms WHERE musuem_name=$1`,
+            [museum_name]
+        );
+        client.release();
+        if (rowCount) {
+            return rows;
+        }
+        return null;
+    } catch (error) {
+        console.error('Error in getCapacities:', error);
+        return { error: "can't get capacities" };
+    }
+};
+
+const getMuseumRooms = async (museum_name) =>{
     try{
         const client = await pool.connect()
-        const { rowCount} = await client.query(
-            `SELECT * FROM Indoor_management WHERE museum_name = $1 AND location = $2`,
-            [museum_name,location]
-        )
+        const {rows, rowCount} = await client.query(
+            `SELECT * FROM museum_rooms WHERE musuem_name=$1` , [museum_name]
+        ) 
         client.release()
-        console.log(rowCount)
-        return rowCount
-    } catch (error){
+        if (rowCount)
+            return rows
         return null
+    }catch (error){
+        return {error : "can't get rooms"}
     }
 }
+
 
 module.exports={
     adduser,
     updateuser,
     deleteuser,
     getbyUsername,
-    crowdRooms
+    crowdRooms,
+    getCapacities,
+    getMuseumRooms
 }

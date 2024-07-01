@@ -1,0 +1,9 @@
+"room_number","room_name","location","musuem_name","avg_capacity","full_capacity"
+1,"Main Hall","{""roomNum"": 0}","The Great Cairo Library",2,8
+2,"Arts Hall","{""IN_OUT"":0,""roomNum"":1}","The Great Cairo Library",3,8
+3,"Arts Room","{""IN_OUT"":1,""roomNum"":1}","The Great Cairo Library",3,8
+4,"Secretary Room","{""IN_OUT"":1,""roomNum"":2}","The Great Cairo Library",2,8
+5,"Secretary Terase","{""IN_OUT"":0,""roomNum"":2}","The Great Cairo Library",2,8
+6,"Conference Room","{""IN_OUT"":1,""roomNum"":3}","The Great Cairo Library",4,8
+7,"Conference Terase","{""IN_OUT"":0,""roomNum"":3}","The Great Cairo Library",6,8
+8,"room1","{""message"": ""You are in the pyramids""}","Pyramids",1,1

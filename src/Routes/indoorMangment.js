@@ -43,15 +43,43 @@ Router.delete("/deleteUser/:username", async(req,res)=>{
     return res.status(400).send({message : 'Cant delete this user'})
 })
 
-Router.get ("/crowded", async (req,res)=>{
+Router.get ("/getRooms/:museum_name", async(req,res)=>{
+    try{
+        const museum_name = req.params.museum_name
+        console.log(museum_name)
+        const roomNames = await indoorServices.getRooms(museum_name)
+        if(roomNames){
+            return res.send(roomNames)
+        }
+        return res.status(500).send("Something went wrong")
+    }catch(error){
+        return {error: "Internal Server error"}
+    }
+} )
+
+Router.get ("/currentCapacity/:museum_name", async (req,res)=>{
     try{
         const payload = {
-            museum_name : req.body.museum_name,
-            location: req.body.location
+            museum_name : req.params.museum_name,
         }
         console.log('body',payload)
         const usernumber = await indoorServices.crowd(payload)
-            return res.send(usernumber.toString())
+            return res.send(usernumber)
+    } catch (error){
+        return {error: "Something went wrong"}
+    }
+})
+
+Router.get("/crowdColors/:museum_name/:location", async (req, res) => {
+    try {
+        console.log('Received request:', req.params);
+        const payload = {
+            museum_name: req.params.museum_name,
+            location: req.params.location
+        };
+        console.log('Payload:', payload);
+        const usernumber = await indoorServices.crowdColors(payload);
+        return res.status(200).send(usernumber.toString());
     } catch (error){
         return {error: "Something went wrong"}
     }
