@@ -117,6 +117,22 @@ const getMuseumRooms = async (museum_name) =>{
     }
 }
 
+const getlocation = async({museum_name, username}) =>{
+    try{
+        const client = await pool.connect()
+        const {rows, rowCount} = await client.query(
+            `SELECT location FROM indoor_management WHERE 
+            museum_name = $1 AND username=$2` , [museum_name,username]
+        )
+        if (rowCount)
+            return rows
+        else
+            return {error: "This is user are not in this museum"}
+
+    } catch (error){
+        return { error : "can't get this username location"}
+    }
+}
 
 module.exports={
     adduser,
@@ -125,5 +141,6 @@ module.exports={
     getbyUsername,
     crowdRooms,
     getCapacities,
-    getMuseumRooms
+    getMuseumRooms,
+    getlocation
 }

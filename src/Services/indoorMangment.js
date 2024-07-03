@@ -157,6 +157,37 @@ async function crowdColors({ museum_name }) {
     }
 }
 
+// get the location to the user and map it to room name
+async function getLocation({ museum_name, username }) {
+    try {
+        const location = await indoorModels.getlocation({ museum_name, username });
+
+        const room_names = await indoorModels.getMuseumRooms(museum_name);
+
+        // Hash map location to room name
+        const locationToRoomName = room_names.reduce((acc, room) => {
+            acc[room.location] = room.room_name; 
+            return acc;
+        }, {});
+
+        console.log('Location to room name hash map:', locationToRoomName);
+        console.log('parased location', location[0].location)
+
+        const mappedLocation = locationToRoomName[location[0].location];
+
+        console.log('Mapped location:', mappedLocation);
+
+        if (mappedLocation) {
+            return mappedLocation;
+        }
+
+        return location;
+    } catch (error) {
+        console.error('Error:', error);
+        return { error: "This username isn't in this museum" };
+    }
+}
+
 
 
 module.exports = {
@@ -165,5 +196,6 @@ module.exports = {
     deletation,
     crowd,
     getRooms,
-    crowdColors
+    crowdColors,
+    getLocation
 }

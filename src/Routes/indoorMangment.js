@@ -72,11 +72,9 @@ Router.get ("/currentCapacity/:museum_name", async (req,res)=>{
 
 Router.get("/crowdColors/:museum_name", async (req, res) => {
     try {
-        console.log('Received request:', req.params);
         const payload = {
             museum_name: req.params.museum_name,
         };
-        console.log('Payload:', payload);
         const usernumber = await indoorServices.crowdColors(payload);
         return res.status(200).send(usernumber);
     } catch (error){
@@ -84,4 +82,17 @@ Router.get("/crowdColors/:museum_name", async (req, res) => {
     }
 })
 
+Router.get("/getMyLocation/:museum_name/:username", async (req,res)=>{
+    try{
+        const payload = {
+            museum_name : req.params.museum_name,
+            username : req.params.username
+        }
+        
+        const location = await indoorServices.getLocation(payload)
+        return res.status(200).send(location)
+    } catch(error){
+        return {error: "Internal Server Error"}
+    }
+})
 module.exports = Router
