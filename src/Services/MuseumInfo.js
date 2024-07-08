@@ -49,7 +49,7 @@ async function search (museum){
     }
 }
 
-async function addMuseum ({museum_name , ticket_tourist , ticket_adult , ticket_student , museinfo , files}){
+async function addMuseum ({museum_name , ticket_tourist , ticket_adult , ticket_student , museinfo}){
     try{
         if( !museum_name || !ticket_tourist ||!ticket_adult ||!ticket_student ||!museinfo )
         
@@ -63,14 +63,7 @@ async function addMuseum ({museum_name , ticket_tourist , ticket_adult , ticket_
     if (!museumData)
         return user.generateErrorMessage(400, "Internal Server error in services in museumData")
 
-    const map = files[0]
-    const museum_image = files [1]
-    const museumImage = await Museum.addMuseumImage({map , museum_image, museum_name})
-    const data = {
-        museumData,
-        museumImage
-    }
-    return {data}
+    return museumData
     } catch (error){
     console.error("Error adding museum:", error.message);
     return { error: "Internal Services Error" };
@@ -79,16 +72,74 @@ async function addMuseum ({museum_name , ticket_tourist , ticket_adult , ticket_
 
 async function edit ({museum_name , ticket_tourist , ticket_adult , ticket_student , museinfo}){
     try {
-        
+        const existingMuseum = await Museum.getByName(museum_name)
+        if (!existingMuseum)
+            return user.generateErrorMessage(400, "There is no museum with this name")
+
+        const updatedData = await Museum.editMuseum({museum_name , ticket_tourist , ticket_adult , ticket_student , museinfo})
+        if (!updatedData)
+            return user.generateErrorMessage(400, "Internal Server error in services in edit museum data")
+    
+        return updatedData
     } catch (error){
         console.error("Error adding museum:", error.message);
         return { error: "Internal Services Error" };
     }
 }
+
+async function updateMap ({url , museum_name}){
+    try{
+        const existingMuseum = await Museum.getByName(museum_name)
+        if (!existingMuseum)
+            return user.generateErrorMessage(400, "There is no museum with this name")
+
+        const Map = await Museum.updateMuseumMap({url , museum_name})
+        if (Map)
+            return Map
+
+        return user.generateErrorMessage(400, "Internal Server error in services in update musuem map")
+
+    }catch(error){
+        return {error:"Internal Services Error"}
+    }
+}
+
+async function updateImage ({url , museum_name}){
+    try{
+        const existingMuseum = await Museum.getByName(museum_name)
+        if (!existingMuseum)
+            return user.generateErrorMessage(400, "There is no museum with this name")
+
+        const Map = await Museum.updateMuseumImage({url , museum_name})
+        if (Map)
+            return Map
+
+        return user.generateErrorMessage(400, "Internal Server error in services in update musuem Image")
+
+    }catch(error){
+        return {error:"Internal Services Error"}
+    }
+}
+
+async function deleteMuseum (museum_name){
+    try{
+        const deleted = await Museum.deleteMuseum(museum_name)
+        if (deleted)
+            return deleted
+        else 
+            return null
+    }catch(error){
+        return { error: "Error deleting museum"}
+    }
+}
+
 module.exports = {
     allMuseums,
     oneMuseum,
     search,
     addMuseum,
-    edit
+    edit, 
+    deleteMuseum, 
+    updateMap,
+    updateImage
 }

@@ -67,9 +67,9 @@ const addMuseumText = async ({ museum_name, ticket_tourist, ticket_adult, ticket
     }
 };
 
-const addMuseumImage = async (url1, url2, museum_name) => {
+const updateMuseumMap = async (url, museum_name) => {
     const client = await pool.connect()
-    const {  rowCount } = await client.query('UPDATE museums SET map=$1 , museum_image=$2 where museum_name = $3', [url1, url2, museum_name])
+    const {  rowCount } = await client.query('UPDATE museums SET map=$1 where museum_name = $2', [url, museum_name])
     client.release()
     if (rowCount) {
         return true
@@ -77,20 +77,14 @@ const addMuseumImage = async (url1, url2, museum_name) => {
     return false
 }
 
-const deleteMuseum = async (museum_name) => {
+const updateMuseumImage = async (url, museum_name) => {
     const client = await pool.connect()
-    const { rowCount}= await client.query(
-        'DELETE FROM "museums" WHERE museum_name = $1',
-        [museum_name]
-    );
-
-    if (rowCount){
-        console.log("Museum deleted successfully");
-        return { success: true };
-    } else {
-        console.log("Failed to delete museum");
-        return { success: false };
+    const {  rowCount } = await client.query('UPDATE museums SET museum_image=$1 where museum_name = $2', [url, museum_name])
+    client.release()
+    if (rowCount) {
+        return true
     }
+    return false
 }
 
 const editMuseum = async ({ museum_name, ticket_tourist, ticket_adult, ticket_student, museinfo}) => {
@@ -116,13 +110,31 @@ const editMuseum = async ({ museum_name, ticket_tourist, ticket_adult, ticket_st
     }
 }
 
+const deleteMuseum = async (museum_name) => {
+    const client = await pool.connect()
+    const { rowCount}= await client.query(
+        'DELETE FROM "museums" WHERE museum_name = $1',
+        [museum_name]
+    );
+
+    if (rowCount){
+        console.log("Museum deleted successfully");
+        return { success: true };
+    } else {
+        console.log("Failed to delete museum");
+        return { success: false };
+    }
+}
+
+
 module.exports={
     getAllmuseums,
     getById,
     getByName,
     searchMuseum,
     addMuseumText,
-    addMuseumImage, 
+    updateMuseumImage,
+    updateMuseumMap, 
     deleteMuseum, 
     editMuseum
 }

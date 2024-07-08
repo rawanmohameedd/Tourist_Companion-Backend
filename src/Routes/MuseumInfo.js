@@ -64,7 +64,7 @@ Router.get("/searchMuseum/:name", async(req,res)=>{
     }
 })
 
-Router.post ("/addMuseum" , upload.array('photos',2) , async (req,res)=>{
+Router.post ("/addMuseum" , async (req,res)=>{
     
     const payload ={
         museum_name: req.body.museum_name ,
@@ -72,7 +72,6 @@ Router.post ("/addMuseum" , upload.array('photos',2) , async (req,res)=>{
         ticket_adult: req.body.ticket_adult ,
         ticket_student: req.body.ticket_student , 
         museinfo: req.body.museinfo ,
-        files: req.files
     }
 
     console.log("first",payload)
@@ -81,6 +80,60 @@ Router.post ("/addMuseum" , upload.array('photos',2) , async (req,res)=>{
         return res.send(result)
     }
     
+})
+
+Router.put("/updateMap/:museum_name", upload.single('image') ,async(req,res)=>{
+    try{
+        museum_name = req.params.museum_name
+        if (!req.file) {
+            return res.send("not file uploaded")
+        }
+        const url = req.file.path
+        const result = await museumServices.updateMap({url, museum_name})
+        if (result) {
+            return res.send("file uploaded sucessfully")
+        }
+    }catch(error){
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+})
+
+Router.put("/updateImage/:museum_name", upload.single('image') ,async(req,res)=>{
+    try{
+        museum_name = req.params.museum_name
+        if (!req.file) {
+            return res.send("not file uploaded")
+        }
+        const url = req.file.path
+        const result = await museumServices.updateImage({url, museum_name})
+        if (result) {
+            return res.send("file uploaded sucessfully")
+        }
+    }catch(error){
+        res.status(500).send({ message: "Internal Server Error" });
+    }
+})
+
+Router.put("/editMuseum/:museum_name",  async(req,res) =>{
+    try {
+        const payload = {
+            museum_name: req.params.museum_name,
+            ticket_tourist: req.body.ticket_tourist,
+            ticket_adult: req.body.ticket_adult,
+            ticket_student: req.body.ticket_student,
+            museinfo: req.body.museinfo,
+        }
+
+        const result = await museumServices.edit(payload)
+
+        if(result){
+            console.log(result)
+            res.send(result)
+        }
+    } catch (error){
+        console.error("Error updating museums: ", error.message)
+        res.status(500).send({ message: "Internal Server Error" });
+    }
 })
 
 Router.delete("/deleteMuseum/:museum_name", async (req, res) => {
@@ -99,26 +152,5 @@ Router.delete("/deleteMuseum/:museum_name", async (req, res) => {
     }
 });
 
-Router.put("/editMuseum/:museum_name",  async(req,res) =>{
-    try {
-        const museum_name = req.params.museum_name
-        const payload = {
-            museum_name,
-            ticket_tourist: req.body.ticket_tourist,
-            ticket_adult: req.body.ticket_adult,
-            ticket_student: req.body.ticket_student,
-            museinfo: req.body.museinfo,
-        }
 
-        const result = await museumServices.edit(payload)
-
-        if(result){
-            console.log(result)
-            res.send(result)
-        }
-    } catch (error){
-        console.error("Error updating museums: ", error.message)
-        res.status(500).send({ message: "Internal Server Error" });
-    }
-})
 module.exports= Router
