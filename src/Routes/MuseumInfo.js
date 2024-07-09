@@ -84,13 +84,13 @@ Router.post ("/addMuseum" , async (req,res)=>{
 
 Router.put("/updateMap/:museum_name", upload.single('image') ,async(req,res)=>{
     try{
-        museum_name = req.params.museum_name
+        const museum_name = req.params.museum_name
         if (!req.file) {
             return res.send("not file uploaded")
         }
         const url = req.file.path
         const result = await museumServices.updateMap({url, museum_name})
-        if (result) {
+        if (result== true) {
             return res.send("file uploaded sucessfully")
         }
     }catch(error){
@@ -100,13 +100,14 @@ Router.put("/updateMap/:museum_name", upload.single('image') ,async(req,res)=>{
 
 Router.put("/updateImage/:museum_name", upload.single('image') ,async(req,res)=>{
     try{
-        museum_name = req.params.museum_name
+        const museum_name = req.params.museum_name
         if (!req.file) {
             return res.send("not file uploaded")
         }
         const url = req.file.path
         const result = await museumServices.updateImage({url, museum_name})
-        if (result) {
+        console.log(result)
+        if (result == true) {
             return res.send("file uploaded sucessfully")
         }
     }catch(error){

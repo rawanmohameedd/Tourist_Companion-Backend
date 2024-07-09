@@ -89,34 +89,28 @@ async function edit ({museum_name , ticket_tourist , ticket_adult , ticket_stude
 
 async function updateMap ({url , museum_name}){
     try{
-        const existingMuseum = await Museum.getByName(museum_name)
-        if (!existingMuseum)
-            return user.generateErrorMessage(400, "There is no museum with this name")
-
+        
         const Map = await Museum.updateMuseumMap({url , museum_name})
+        console.log('el models rag3a menha eh',Map)
         if (Map)
             return Map
 
-        return user.generateErrorMessage(400, "Internal Server error in services in update musuem map")
-
     }catch(error){
+        console.error(error)
         return {error:"Internal Services Error"}
     }
 }
 
 async function updateImage ({url , museum_name}){
     try{
-        const existingMuseum = await Museum.getByName(museum_name)
-        if (!existingMuseum)
-            return user.generateErrorMessage(400, "There is no museum with this name")
-
+        
         const Map = await Museum.updateMuseumImage({url , museum_name})
+        console.log('el models rag3a menha eh',Map)
         if (Map)
             return Map
 
-        return user.generateErrorMessage(400, "Internal Server error in services in update musuem Image")
-
     }catch(error){
+        console.error(error)
         return {error:"Internal Services Error"}
     }
 }

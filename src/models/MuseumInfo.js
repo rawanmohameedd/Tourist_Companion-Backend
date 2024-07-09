@@ -67,9 +67,11 @@ const addMuseumText = async ({ museum_name, ticket_tourist, ticket_adult, ticket
     }
 };
 
-const updateMuseumMap = async (url, museum_name) => {
+const updateMuseumMap = async ({url, museum_name}) => {
+    const cleanedUrl = url.startsWith('src\\') ? url.substring(4) : url;
+        console.log(cleanedUrl, 'cleaned url');
     const client = await pool.connect()
-    const {  rowCount } = await client.query('UPDATE museums SET map=$1 where museum_name = $2', [url, museum_name])
+    const {  rowCount } = await client.query('UPDATE museums SET map=$1 where museum_name = $2', [cleanedUrl, museum_name])
     client.release()
     if (rowCount) {
         return true
@@ -77,15 +79,21 @@ const updateMuseumMap = async (url, museum_name) => {
     return false
 }
 
-const updateMuseumImage = async (url, museum_name) => {
-    const client = await pool.connect()
-    const {  rowCount } = await client.query('UPDATE museums SET museum_image=$1 where museum_name = $2', [url, museum_name])
-    client.release()
-    if (rowCount) {
-        return true
-    }
-    return false
-}
+const updateMuseumImage = async ({url, museum_name}) => {
+    try {
+        const cleanedUrl = url.startsWith('src\\') ? url.substring(4) : url;
+        console.log(cleanedUrl, 'cleaned url');
+
+        const client = await pool.connect();
+        const { rowCount } = await client.query('UPDATE museums SET musuem_image = $1 WHERE museum_name = $2', [cleanedUrl, museum_name]);
+        client.release();
+
+        return rowCount > 0;
+    } catch (error) {
+        console.error(error);
+        return false;
+    } 
+};
 
 const editMuseum = async ({ museum_name, ticket_tourist, ticket_adult, ticket_student, museinfo}) => {
     const client = await pool.connect()
