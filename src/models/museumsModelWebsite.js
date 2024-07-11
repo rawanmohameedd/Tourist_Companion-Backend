@@ -39,6 +39,7 @@ const addRooms  = async ({musid, room_name, avg_capcity, full_capcity}) =>{
 
 const viewmuseumUsers = async (museum_name) =>{
     const client = await pool.connect()
+    console.log(museum_name,'fel models')
     const {rows , rowCount} = await client.query(
         `SELECT * FROM Indoor_management WHERE museum_name = $1` ,[museum_name]
     )
@@ -46,7 +47,7 @@ const viewmuseumUsers = async (museum_name) =>{
     client.release()
 
     if(rowCount){
-        return {rows, rowCount}
+        return rows
     }
 
     return {message : "There is no one in this museum"}

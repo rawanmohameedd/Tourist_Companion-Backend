@@ -32,6 +32,7 @@ async function addRooms ({room_name , avg_capcity, full_capcity, musid}){
 
 async function view (museum_name){
     try{
+        console.log(museum_name,'fel services')
         const selectedMuseum = MuseumModel.viewmuseumUsers(museum_name)
         if (selectedMuseum)
             return selectedMuseum

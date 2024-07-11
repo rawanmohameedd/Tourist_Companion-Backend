@@ -36,10 +36,10 @@ Router.post("/addRooms",async(req,res)=>{
     }
 })
 
-Router.get("/selectMuseum", async(req,res)=>{
-    const museum_name = req.body.museum_name
+Router.get("/selectMuseum/:musuem_name", async(req,res)=>{
+    const museum_name = req.params.musuem_name
     console.log(museum_name)
-    const museumUsers = await indoorServices.view(museum_name)
+    const museumUsers = await museumModelServices.view(museum_name)
     if(museumUsers)
         return res.send(museumUsers)
     return res.status(400).send({message : 'Cant view this museum useres'})
