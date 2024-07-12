@@ -47,6 +47,23 @@ Router.get("/showRequests/:tourguide_username", async(req, res)=>{
     }
 })
 
+Router.put("/acceptRequest/:tour_username",async (req,res)=>{
+    try{
+        const tour_username = req.params.tour_username
+        const accepting = await RequestServices.accept(tour_username)
+
+        if (accepting === true) {
+            return res.status(200).json({ message: "Request accepted successfully." });
+        } else if (!accepting) {
+            return res.status(404).json({ error: "No request found with the provided tour_username." });
+        } 
+        return res.status(500).json({ error: "Internal server error occurred while accepting the request." }); 
+    } catch(error){
+        console.error("Error handling accept request:", error.message);
+        return res.status(500).json({ error: "Internal server error occurred." });
+    }
+})
+
 Router.delete("/declinedRequest/:tour_username", async (req, res) => {
     try {
         const tour_username = req.params.tour_username;

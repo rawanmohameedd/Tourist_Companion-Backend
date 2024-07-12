@@ -44,14 +44,24 @@ const showAllRequests = async (tourguide_username)=>{
         if (rowCount){
             return {rows}
         }
-        return {error: "This tourguide has no connected tourists"}
+        return "This tourguide has no connected tourists"
     } catch (error){
         return {error : "internal several error"}
     }
 }
 
-const acceptRequest = async ()=>{
-
+const acceptRequest = async (tour_username)=>{
+    try{
+        const client = await pool.connect()
+        const {rowCount} = await pool.query(
+            `UPDATE tourists_requests SET pending = false WHERE tour_username = $1;`,[tour_username])
+        client.release()
+        if (rowCount)
+            return true
+        return null
+    }catch(error){
+        return {error : "internal several error"}
+    }
 }
 
 const declineRequest = async (tour_username)=>{
@@ -106,7 +116,7 @@ const connectedTourguide = async (tour_username)=>{
 module.exports ={
     sendRequest,
     showAllRequests,
-    // acceptRequest,
+    acceptRequest,
     declineRequest,
     connectedTourguide,
     connectedTourist

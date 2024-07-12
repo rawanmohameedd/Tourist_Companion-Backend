@@ -70,10 +70,23 @@ async function Tourguide(tour_username){
         return { error: "Unable to retrieve connected tour guide" };     }
 }
 
+async function accept (tour_username){
+    try{
+        const accepted = await requestModels.acceptRequest(tour_username)
+        console.log(accepted)
+        if(accepted)
+            return accepted
+        return "msh tal3a true"
+    }catch(error){
+        console.error("Error aacepting user:", error);
+        return { error: "Unable to retrieve this tourist request" }; 
+    }
+}
+
 module.exports = {
     sent,
     show,
-    // accept,
+    accept,
     decline,
     Tourguide,
     Tourist

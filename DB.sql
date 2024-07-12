@@ -56,6 +56,8 @@ CREATE TABLE tourists_requests (
 	end_date date
 );
 
+alter table tourists_requests add column pending boolean default true
+
 create table admins (
 	id int ,
 	password varchar (255),
