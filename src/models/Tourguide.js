@@ -103,6 +103,25 @@ const isAvaliable = async (tourguide_username)=>{
         return {error: "can't update tourguide availablity"}
     }
 }
+
+const isPending = async (tourguide_username)=>{
+    try {
+    const client = await pool.connect()
+    const { rows , rowCount} = await client.query('UPDATE tourguide SET pending = false WHERE tourguide_username = $1 RETURNING *',[tourguide_username])
+    client.release()
+    console.log(rows[0].isavaliable)
+    console.log(rowCount)
+
+    if (rowCount){
+        return rows[0]
+    }
+    return null;
+    }
+    catch (error){
+        return {error: "can't update tourguide availablity"}
+    }
+}
+
 module.exports = {
     getByUsernameTG,
     getByEmailTG,
@@ -111,5 +130,6 @@ module.exports = {
     getProfileTG,
     uploadPhoto,
     deletePhoto,
-    isAvaliable
+    isAvaliable,
+    isPending
 }

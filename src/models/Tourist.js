@@ -27,7 +27,7 @@ const getByEmailT = async (email) => {
 const createTourist = async (user) => {
     const client = await pool.connect()
     const { rows, rowCount } = await client.query(
-        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,brithdayT,passwordT) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING tour_username , emailT , first_nameT , last_nameT , nationalityT , brithdayT , passwordT',
+        'INSERT INTO "tourists" (tour_username,emailT,first_nameT,last_nameT,nationalityT,birthdayT,passwordT) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING tour_username , emailT , first_nameT , last_nameT , nationalityT , birthdayT , passwordT',
         [user.tour_username, user.emailT, user.first_nameT, user.last_nameT, user.nationalityT, user.birthdayT, user.encryptedpassword]
     )
     client.release()

@@ -3,20 +3,1194 @@
 		"_postman_id": "28e4436e-b7d8-4c6d-ad50-eba8dab71c73",
 		"name": "Tourist Companion",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31111057"
+		"_exporter_id": "31111057",
+		"_collection_link": "https://grey-space-666741.postman.co/workspace/Tourist-Companion~6469b58a-c0c4-4cd9-8390-73344be5d571/collection/31111057-28e4436e-b7d8-4c6d-ad50-eba8dab71c73?action=share&source=collection_link&creator=31111057"
 	},
 	"item": [
 		{
-			"name": "Tourguide",
+			"name": "Mobile App",
 			"item": [
 				{
-					"name": "signupTG",
+					"name": "Tourists_requests",
+					"item": [
+						{
+							"name": "Send Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tour_username\": \"habibabastawe14\",\r\n    \"tourguide_username\": \"rawanmohameedd\",\r\n    \"is_one_visit\": true,\r\n    \"place\": \"Grand Egyptian museum\",\r\n    \"visit_date\": \"2024-07-28\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/sentRequest",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"sentRequest"
+									]
+								},
+								"description": "\nThis endpoint makes an HTTP POST request to {{url}}/sentRequest to submit a request with the provided payload. The request body should be in raw JSON format and include the following parameters:\n- tour_username (string): The username of the tour\n- tourguide_username (string): The username of the tour guide\n- is_one_visit (boolean): Indicates if it is a single visit\n- start_date (string): The start date of the request\n- end_date (string): The end date of the request\n\n### Response\nUpon successful execution, the endpoint returns a JSON response with a status code of 200 and the following content:\n```json\n{\n    \"value\": {\n        \"tour_username\": \"\",\n        \"tourguide_username\": \"\",\n        \"is_one_visit\": true,\n        \"start_date\": \"\",\n        \"end_date\": \"\"\n    }\n}\n```\nThe response includes the submitted values for tour_username, tourguide_username, is_one_visit, start_date, and end_date.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Show all requests",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/showRequests/rawanmohameedd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"showRequests",
+										"rawanmohameedd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "decline request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/declinedRequest/habibabastawe14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"declinedRequest",
+										"habibabastawe14"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Accept request",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/acceptRequest/dan74",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"acceptRequest",
+										"dan74"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Connected tourists",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Connected Tourguide",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/getTourguide/dan74",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"getTourguide",
+										"dan74"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Rate",
+					"item": [
+						{
+							"name": "Give a rate",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"tour_username\": \"norhanahmed\",\r\n        \"tourguide_username\": \"omarabdelghany \",\r\n        \"rate\": \"2\",\r\n        \"visit\": \"Nubian Museum\",\r\n        \"date_of_the_visit\": \"2024-01-01\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/singleRate",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"singleRate"
+									]
+								},
+								"description": "\nThis endpoint allows you to submit a single rate for a tour guide. \n\n### Request Body\n- `tour_username` (string): The username of the tour participant.\n- `tourguide_username` (string): The username of the tour guide being rated.\n- `rate` (string): The rating given to the tour guide.\n- `visit` (string): Details of the visit.\n- `date_of_the_visit` (string): The date of the visit.\n\n### Response\nUpon successful execution, the response will include the following fields:\n- `tourguide_username` (string): The username of the tour guide being rated.\n- `tour_username` (string): The username of the tour participant.\n- `rate` (integer): The rating given to the tour guide.\n- `visit` (string): Details of the visit.\n- `date_of_the_visit` (string): The date of the visit.\n\nIn case of an error, standard HTTP status codes will be returned.\n\n"
+							},
+							"response": []
+						},
+						{
+							"name": "show all tourguide rates",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/showAllRates/omarabdelghany",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"showAllRates",
+										"omarabdelghany"
+									]
+								},
+								"description": "\nThis endpoint makes an HTTP GET request to retrieve all rates for a specific user. In this case, it fetches all rates for the user 'omarabdelghany'. The response will be in JSON format and will include an array of objects, each representing a rate with details such as tour guide ID, usernames, rate, visit details, and date of the visit.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Tourist visits",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/touristVisits/norhanahmed",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"touristVisits",
+										"norhanahmed"
+									]
+								},
+								"description": "\nThis endpoint retrieves the tourist visits for a specific user. \n\n### Request\n\n`GET /touristVisits/tokaabdelgawad`\n\n### Response\n\n- Status: 200\n- Content-Type: application/json\n\n```json\n{\n    \"visits\": [\n        {\n            \"tourguide_username\": \"\",\n            \"rate\": 0,\n            \"visit\": \"\",\n            \"date_of_the_visit\": \"\"\n        }\n    ]\n}\n```\nThe response contains an array of visits, each with details such as tour guide username, rate, visit description, and date of the visit.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"avgrating\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/updateAvgRate/rawanmohameedd",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"updateAvgRate",
+										"rawanmohameedd"
+									]
+								},
+								"description": "\n    \n### Update Average Rating\nThis endpoint allows the user to update the average rating for a specific entity.\n\n#### Request\n- Method: PUT\n- Endpoint: {{url}}/updateAvgRate/rawanmohameedd\n- Body (raw, application/json):\n    ```json\n    {\n        \"avgrating\": 0\n    }\n    ```\n\n#### Response\n- Status: 200\n- Content-Type: application/json\n- Body:\n    ```json\n    {\n        \"value\": true\n    }\n    ```\n\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "ByUsername",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/byUsername/an",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"byUsername",
+										"an"
+									]
+								},
+								"description": "\nThis API endpoint makes an HTTP GET request to retrieve information about a user with the username \"an\". The response contains a status code of 200 and the data is in JSON format. The response includes information about tourists and tour guides, such as their usernames, emails, first names, last names, nationalities, birthdays, spoken languages, profile photos, average ratings, and availability status.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Find a guide by userename",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/username/a",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"username",
+										"a"
+									]
+								},
+								"description": "\nThis endpoint makes an HTTP GET request to retrieve information about a specific user with the username 'a'. The response will be in JSON format and will include details about the user's tour guides, such as their username, email, first name, last name, national ID, birthday, spoken languages, profile photo, average rating, and availability status.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Find a guide by spoken language",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/spoken_lang/H",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"spoken_lang",
+										"H"
+									]
+								},
+								"description": "\nThis endpoint makes an HTTP GET request to retrieve information about tour guides who speak a specific language. The response will contain an array of tour guide objects, each including details such as username, email, first name, last name, national ID, birthday, spoken languages, profile photo, average rating, and availability status.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "ByNationality",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/byNationality/Italian",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"byNationality",
+										"Italian"
+									]
+								},
+								"description": "\nThis API endpoint sends an HTTP GET request to retrieve a list of tourists by nationality, specifically targeting Italian tourists. The response will contain a JSON object with an array of tourists, including their usernames, emails, first names, last names, nationalities, birthdays, and profile photos.\n\nThe last execution of this request returned a status code of 200, indicating a successful response, and the content type was set to application/json. The response body included an array of tourist objects, each containing the mentioned attributes with their corresponding values.\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Find a guide by rating",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/rating",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"rating"
+									]
+								},
+								"description": "\nThis endpoint sends an HTTP GET request to retrieve the ratings of tour guides. The response will be in JSON format and will include an array of tour guides with their usernames, email addresses, names, national IDs, birthdays, spoken languages, profile photos, average ratings, and availability status.\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "museums Info",
+					"item": [
+						{
+							"name": "All museums",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/museums",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"museums"
+									]
+								},
+								"description": "\nThis endpoint makes an HTTP GET request to retrieve a list of museums from the provided URL. The response returns a status code of 200 along with a JSON array containing information about each museum. Each museum object includes the unique identifier (musid), museum name, ticket prices for tourists, adults, and students, additional museum information, a map, and an image of the museum. \n"
+							},
+							"response": []
+						},
+						{
+							"name": "One museum",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/museum/3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"museum",
+										"3"
+									]
+								},
+								"description": "\nThis API endpoint retrieves information about a specific museum with the ID 3. The response will be in JSON format and will include details such as museum ID, name, ticket prices for tourists, adults, and students, museum information, map location, and an image of the museum.\n\nThe response will have a status code of 200 indicating a successful request.\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tourist",
+					"item": [
+						{
+							"name": "signupT",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tour_username\": \"HusseinMostafa\",\r\n    \"emailT\": \"HusseinMostafa123@gmail.com \",\r\n    \"first_nameT\": \"Hussein\",\r\n    \"last_nameT\": \"Mostafa\",\r\n    \"nationalityT\":\"British\",\r\n    \"birthdayT\": \"2000-02-11\",\r\n    \"passwordT\": \"112Hussein\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/signupT",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"signupT"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signinT",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"emailT\": \"HusseinMostafa123@gmail.com \",\r\n    \"passwordT\": \"112Hussein\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/signinT",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"signinT"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getProfileT",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1c3NlaW5tb3N0YWZhMTIzQGdtYWlsLmNvbSAiLCJyb2xlIjoidG91cmlzdCIsImlhdCI6MTcyMzkyMzIxN30.De28HBlw6rIwmqUNAMj33PChhkIkWBDKlgzMLn7O7_8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:3000/ProfileT",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"ProfileT"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload Photo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1c3NlaW5tb3N0YWZhMTIzQGdtYWlsLmNvbSAiLCJyb2xlIjoidG91cmlzdCIsImlhdCI6MTcyMzkyMzIxN30.De28HBlw6rIwmqUNAMj33PChhkIkWBDKlgzMLn7O7_8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef347fe-f3e6-4770-8dd4-f1b8f1a84ba0"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/uploadT",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"uploadT"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tourguide",
+					"item": [
+						{
+							"name": "signupTG",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tourguide_username\": \"Rawan\",\r\n    \"emailTG\": \"nrawana12345@gmail.com\",\r\n    \"first_nameTG\": \"Rawan\",\r\n    \"last_nameTG\": \"Mohamed\",\r\n    \"nationalidTG\": \"1234567890123\",\r\n    \"birthdayTG\": \"2001-04-21\",\r\n    \"spoken_langTG\": \"English, German\",\r\n    \"passwordTG\": \"214Rawan\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/signupTG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"signupTG"
+									]
+								},
+								"description": "This endpoint allows users to sign up as a tour guide. Upon a successful POST request to the specified URL, a user will be signed up with the provided details. The request should include the tour guide's username, email, first name, last name, national ID, birthday, spoken languages, and password.\n\n### Request Body\n\n- tourguide_username (text, required): The username of the tour guide.\n- emailTG (text, required): The email address of the tour guide.\n- first_nameTG (text, required): The first name of the tour guide.\n- last_nameTG (text, required): The last name of the tour guide.\n- nationalidTG (text, required): The national ID of the tour guide.\n- birthdayTG (text, required): The birthday of the tour guide.\n- spoken_langTG (text, required): The spoken languages of the tour guide.\n- passwordTG (text, required): The password for the tour guide account.\n    \n\n### Response\n\n- Status: 400\n- Content-Type: application/json\n- message (string): A message indicating the reason for the failure, if any."
+							},
+							"response": []
+						},
+						{
+							"name": "signinTG",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"emailTG\": \"nrawana12345@gmail.com\",\r\n    \"passwordTG\": \"214Rawan\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/signinTG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"signinTG"
+									]
+								},
+								"description": "\n    \n### SigninTG\n\nThis endpoint is used to sign in with the provided email and password.\n\n#### Request Body\n- emailTG (text, required): The email of the user.\n- passwordTG (text, required): The password of the user.\n\n#### Response\n- Status: 404\n- Content-Type: application/json\n- message (string): A message indicating the outcome of the sign-in attempt.\n\n"
+							},
+							"response": []
+						},
+						{
+							"name": "getProfileTG",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5yYXdhbmExMjM0NUBnbWFpbC5jb20iLCJyb2xlIjoidG91cmd1aWRlIiwiaWF0IjoxNzIzOTIzNDk4fQ.uamZ7ZZWZKV94qYd5WiBbzLuf0lyoploKTZBw3w6ZIo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/ProfileTG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"ProfileTG"
+									]
+								},
+								"description": "\n  \n# ProfileTG\n\nThis endpoint is used to retrieve profile information.\n\n## Response\n\n- Status: 401\n- Content-Type: application/json\n\nThe response will contain a JSON object with a \"message\" key indicating the reason for the unauthorized status.\n\n"
+							},
+							"response": []
+						},
+						{
+							"name": "uploadTG",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5yYXdhbmExMjM0NUBnbWFpbC5jb20iLCJyb2xlIjoidG91cmd1aWRlIiwiaWF0IjoxNzIzOTIzNDk4fQ.uamZ7ZZWZKV94qYd5WiBbzLuf0lyoploKTZBw3w6ZIo",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1eec8777-2764-4100-9009-b5de575af269"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/uploadTG",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"uploadTG"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "isAvaliable",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/updateAvailability/rawan",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"updateAvailability",
+										"rawan"
+									]
+								},
+								"description": "\nThis endpoint allows updating the availability status for a specific user. \n\n### Request Parameters\n- Path Variable\n    - `anashesham000` (string): The unique identifier of the user.\n\n### Response\nUpon a successful request, the server returns a status code of 200 and a JSON object with the updated availability status of the user. The `isavailable` field indicates whether the user is available or not.\n\nExample Response:\n```json\n{\n    \"value\": {\n        \"tourguide_username\": \"\",\n        \"emailtg\": \"\",\n        \"first_nametg\": \"\",\n        \"last_nametg\": \"\",\n        \"nationalidtg\": \"\",\n        \"brithdaytg\": \"\",\n        \"spoken_langtg\": \"\",\n        \"passwordtg\": \"\",\n        \"profile_phototg\": \"\",\n        \"licensetg\": null,\n        \"avgrating\": \"\",\n        \"isavailable\": true\n    }\n}\n```\n"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Indoor management",
+					"item": [
+						{
+							"name": "connect with flask",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"readings\":{\r\n    \"1\":-100,\r\n    \"2\":-100,\r\n    \"3\":-56,\r\n    \"4\":-55,\r\n    \"5\":-100,\r\n    \"6\":-85,\r\n    \"7\":-83,\r\n    \"8\":-100,\r\n    \"9\":-74\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/ConnectWithFlask",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"ConnectWithFlask"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get museum BSSIDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/getBssid/The Great Cairo Library",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"getBssid",
+										"The Great Cairo Library"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Location",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"abdelrhmantawfik\",\r\n    \"role\":\"Tour guide\",\r\n    \"museum_name\":\"The Great Cairo Library\",\r\n    \"location\": {\"IN_OUT\":1,\"roomNum\":2}\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/newUser",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"newUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Location",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"rawanmohameedd\",\r\n    \"museum_name\":\"The Great Cairo Library\",\r\n    \"location\":{\"IN_OUT\":1,\"roomNum\":1}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/updateUser",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"updateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deleteUser/dan74",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deleteUser",
+										"dan74"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Current Capacity for all rooms",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/currentCapacity/The Great Cairo Library",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"currentCapacity",
+										"The Great Cairo Library"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rooms Info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/getRooms/The Great Cairo Library",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"getRooms",
+										"The Great Cairo Library"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "crowd color for single room",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/crowdColors/The Great Cairo Library",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"crowdColors",
+										"The Great Cairo Library"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get location",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/getMyLocation/The Great Cairo Library/anashesham000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"getMyLocation",
+										"The Great Cairo Library",
+										"anashesham000"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Website",
+			"item": [
+				{
+					"name": "museums",
+					"item": [
+						{
+							"name": "One musum",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/museum/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"museum",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "All musums",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/museums",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"museums"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/searchMuseum/li",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"searchMuseum",
+										"li"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n        \"museinfo\": \"keda ana 3amlt tany edit\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/editMuseum/test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"editMuseum",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"museum_name\": \"test\" ,\r\n        \"ticket_tourist\": 5 ,\r\n        \"ticket_adult\": 5 ,\r\n        \"ticket_student\": 5 , \r\n        \"museinfo\": \"test\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/addMuseum",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"addMuseum"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/deleteMuseum/test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"deleteMuseum",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Museum Image",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef379e0-a48f-4a50-8767-db7003b3243f"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/updateImage/test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"updateImage",
+										"test"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload museum map",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "postman-cloud:///1ef33d3e-8c8e-4250-9a7c-92607c04b844"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/updateMap/test",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"updateMap",
+										"test"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tour guides Licenes",
+					"item": [
+						{
+							"name": "Display license",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Accept",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Decline",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Next",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Pervious",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Indoor management",
+					"item": [
+						{
+							"name": "View Museum Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"museum_name\":\"The Great Cairo Library\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/selectMuseum",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"selectMuseum"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tourguide_username\": \"Rawan\",\r\n    \"emailTG\": \"nrawana12345@gmail.com\",\r\n    \"first_nameTG\": \"Rawan\",\r\n    \"last_nameTG\": \"Mohamed\",\r\n    \"nationalidTG\": \"1234567890123\",\r\n    \"birthdayTG\": \"2001-04-21\",\r\n    \"spoken_langTG\": \"English, German\",\r\n    \"passwordTG\": \"214Rawan\"\r\n}",
+							"raw": "{\r\n    \"id\": 301061 ,\r\n    \"password\": \"123Rawan\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,357 +1198,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/signupTG",
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
 							"host": [
-								"{{url}}"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
-								"signupTG"
+								"login"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "signinTG",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"emailTG\": \"Anas@gmail.com\",\r\n    \"passwordTG\": \"121Annas\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/signinTG",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"signinTG"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getProfileTG",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFuYXNAZ21haWwuY29tIiwicm9sZSI6InRvdXJndWlkZSIsImlhdCI6MTcwNzQyNjk1MH0.55a4AV7DF-YFsUsCJvoetGYKxeoB-3tYqWsK87J9p8I",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/ProfileTG",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"ProfileTG"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "uploadTG",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9tYXJtYWhtb3VkNDM1NkBnbWFpbC5jb20iLCJyb2xlIjoidG91cmd1aWRlIiwiaWF0IjoxNzA3NjEyNjY4fQ.7DyH_glYZ1wVRVh8erFhzxwIjqpCSF0P7zDnhMjskRs",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "postman-cloud:///1eec8777-2764-4100-9009-b5de575af269"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/uploadTG",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"uploadTG"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "isAvaliable",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Tourist",
-			"item": [
-				{
-					"name": "signupT",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tour_username\": \"HusseinMostafa\",\r\n    \"emailT\": \"HusseinMostafa@gmail.com \",\r\n    \"first_nameT\": \"Hussein\",\r\n    \"last_nameT\": \"Mostafa\",\r\n    \"nationalityT\":\"British\",\r\n    \"birthdayT\": \"2000-02-11\",\r\n    \"passwordT\": \"112Hussein\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/signupT",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"signupT"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "signinT",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"emailT\": \"Tokaabdelgawad60@gmail.com\",\r\n    \"passwordT\": \"215Tooka\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/signinT",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"signinT"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getProfileT",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhYmliYWJhc3Rhd2U2N0BnbWFpbC5jb20iLCJyb2xlIjoidG91cmlzdCIsImlhdCI6MTcwNzU4ODcxNn0.cbeOBY3Ob-zMPn9YGV1mChOeQIQ7yzpuUuQcpNy9Aw0",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/ProfileT",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"ProfileT"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikh1c3NlaU1vc3RhZmFAZ21haWwuY29tIiwicm9sZSI6InRvdXJpc3QiLCJpYXQiOjE3MDc2MTY1NjZ9.FqMQo-mBlvmxk3ARx-LL34ovszFvIo6ANWum5bEuN2A",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "postman-cloud:///1eec8801-9a97-4890-baca-c4154b613b71"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/uploadT",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"uploadT"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "museums Info",
-			"item": [
-				{
-					"name": "All museums",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/museums",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"museums"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "One museum",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/museum/3",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"museum",
-								"3"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Search",
-			"item": [
-				{
-					"name": "ByUsername",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/byUsername/an",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"byUsername",
-								"an"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find a guide by userename",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Find a guide by spoken language",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "ByNationality",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Rate",
-			"item": [
-				{
-					"name": "Give a rate",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "show all tourguide rates",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Tourist visits",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Update",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}

@@ -25,6 +25,7 @@ Create Table tourGuide(
     avgRating NUMERIC(10, 2),
 	primary key(tourguide_username)
 );
+alter table tourguide add column pending boolean default true
 
 create table museums (
 	musid serial primary key,

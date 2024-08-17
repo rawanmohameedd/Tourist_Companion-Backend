@@ -85,11 +85,25 @@ async function available (tourguide_username){
         return user.generateErrorMessage("400", "can't change availablity")
     }
 }
+async function pending (tourguide_username){
+    try {
+    const pending = await Tourguide.isPending(tourguide_username)
+
+    console.log('services',[pending])
+    if(pending !== null){
+        return { value: pending}
+    }
+    return { error: "pending can't be changed"}
+    } catch (error){
+        return user.generateErrorMessage("400", "can't change pending")
+    }
+}
 
 module.exports = {
     SignupTG,
     SigninTG,
     uploadPhoto,
     deletePhoto,
-    available
+    available,
+    pending
 }

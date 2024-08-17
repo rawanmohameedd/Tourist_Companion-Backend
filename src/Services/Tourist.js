@@ -15,13 +15,13 @@ async function SignupT({ tour_username, emailT, first_nameT, last_nameT, nationa
     if (existingUsername) {
         return user.generateErrorMessage(400, "Username is already in use");
     }
-    if (!user.validEmail(emailT)) {
-        return user.generateErrorMessage(400, "Invalid Email Format")
-    }
-    if (!user.validPassword(passwordT)) {
-        return user.generateErrorMessage(400, `Password must contain : at least 8 characters 
-        contain unique character contain uppercase letter`)
-    }
+    // if (!user.validEmail(emailT)) {
+    //     return user.generateErrorMessage(400, "Invalid Email Format")
+    // }
+    // if (!user.validPassword(passwordT)) {
+    //     return user.generateErrorMessage(400, `Password must contain : at least 8 characters 
+    //     contain unique character contain uppercase letter`)
+    // }
     const encryptedpassword = user.ecncryptPassword(passwordT)
 
     token = user.generateToken(emailT, "tourist")
